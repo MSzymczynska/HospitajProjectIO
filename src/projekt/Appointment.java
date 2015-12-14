@@ -2,6 +2,9 @@ package projekt;
 
 import java.util.Date;
 
+
+//na razie tutaj
+//cos dorzuce
 public class Appointment {
 
 	private Date date;
