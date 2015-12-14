@@ -97,6 +97,11 @@ public class MainPanel extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Karta pacjenta");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PatientsCardWindow window = new PatientsCardWindow();
+			}
+		});
 		btnNewButton_1.setBounds(95, 212, 224, 23);
 		contentPane.add(btnNewButton_1);
 		
