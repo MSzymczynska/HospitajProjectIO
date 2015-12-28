@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import view.MainPanel;
+
 /**
  *
  * @author Maciej
@@ -19,8 +21,10 @@ public class StorageMainPanel {
     private StorageArchive archive;
     private float moneyNeeded;
     private List<ProductOrder> ordersFromOutside;
+    public HospitalPharmacy hp;
 
-    public StorageMainPanel() {
+    public StorageMainPanel(HospitalPharmacy hp) {
+    	this.hp=hp;
         this.ordersFromOutside = new ArrayList<ProductOrder>();
         ordersFromOutside.add(new ProductOrder("12", new ProductQuantity(new Product(1,"NAME1","PRODUCER1",new Date()), 10), new Date(), "Kuchnia", "Magazyn"));
         
@@ -71,10 +75,12 @@ public class StorageMainPanel {
                 }
                 else if(to.compareTo("Apteka") == 0)
                 {
-                    Medicine med = new Medicine(3, productQuantity.product.name, "prod3", null);
-                    
-                    
+//                	Medicine med = new Medicine(3, productQuantity.product.name, "prod3", null);
+//                  med.quantity=productQuantity.quantity;
+//                  this.hp.addMedicineToPharmecyList(med);
+                                                           
                 }
+                
                 
                 String id = Integer.toString(Integer.parseInt(archive.getArchive().get(archive.getArchive().size() - 1).id) + 1);
                 ProductOut p = new ProductOut(id, productQuantity, new Date(), to);

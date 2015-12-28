@@ -40,7 +40,7 @@ public class OrderFromStorageDialog extends JDialog {
 		contentPanel.add(lblWybierzLek);
 		
 		comboBox = new JComboBox();
-		String przyk³adoweNazwyLekow[] = {"Lek1", "Lek2", "Lek3"};
+		String przyk³adoweNazwyLekow[] = {"lek1", "lek2", "lek3"};
 		comboBox = new JComboBox(przyk³adoweNazwyLekow);
 		comboBox.setBounds(10, 36, 414, 20);
 		contentPanel.add(comboBox);

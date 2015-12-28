@@ -50,9 +50,22 @@ public class HospitalPharmacy{
 		
 		
 	}
-	public void addMedicineToPharmecyList(int medId, int quantity) {
-		
+	public void addMedicineToPharmecyList(Medicine m) {
+		System.out.println(m.name);
+		boolean x=false;
+		for(int i=0; i<this.medicineList.size(); i++){
+			if(this.medicineList.get(i).name==m.name)
+			{
+				this.medicineList.get(i).quantity+=m.quantity;
+				x=true;
+				break;
+			}				
+		}
+		if(x==false)
+		medicineList.add(m);
+			
 	}
+	
 	public void addOrderedMedicine(FormField ff){
 		orderedMedicine.add(ff);
 	}
@@ -63,15 +76,15 @@ public class HospitalPharmacy{
 		madeMedicines.add(m);
 	}
 	
-	public void przyk³adoweDane(){
+	public void przykladoweDane(){
 		int quantity = 0;
-		String description = "Lek na g³owê.";
-		String instructions = "Bierzesz sk³ 1 * 0.1. Dodajesz sk³ 2 * 1. Mieszasz. Dodajesz sk³ 3 * 0.5 + sk³ 4 * 0.6 i podgrzewasz.";
+		String description = "Lek na glowe.";
+		String instructions = "Bierzesz sklad 1 * 0.1. Dodajesz sklad 2 * 1. Mieszasz. Dodajesz sklad 3 * 0.5 + sklad 4 * 0.6 i podgrzewasz.";
 		ArrayList<String> composition = new ArrayList();
-		composition.add("Sk³ 1");
-		composition.add("Sk³ 2");
-		composition.add("Sk³ 3");
-		composition.add("Sk³ 4");
+		composition.add("sklad 1");
+		composition.add("sklad 2");
+		composition.add("sklad 3");
+		composition.add("sklad 4");
 		Medicine m1 = new Medicine(1, "name1", "prod1", null);
 		m1.name="Hexodumox";
 		m1.setDescription(description);
@@ -82,7 +95,7 @@ public class HospitalPharmacy{
 		medicineList.add(m1);
 		composition = new ArrayList<>();
 		description = "Lek na wszystko.";
-		instructions = "£¹czysz wszystko w iloœciach 1";
+		instructions = "Laczysz wszystko w ilosciach 1";
 		composition.add("S 1");
 		composition.add("S 2");
 		composition.add("S 3");
@@ -97,13 +110,13 @@ public class HospitalPharmacy{
 		medicineList.add(m2);
 		composition = new ArrayList<>();
 		description = "Lek na nic.";
-		instructions = "£¹czysz wszystko. Podgrzewasz. Dodajesz 1 czêœæ wody.";
-		composition.add("Sk³adnik 1");
-		composition.add("Sk³adnik 2");
-		composition.add("Sk³adnik 3");
-		composition.add("Sk³adnik 4");
+		instructions = "Laczysz wszystko. Podgrzewasz. Dodajesz wode.";
+		composition.add("Skladnik 1");
+		composition.add("Skladnik 2");
+		composition.add("Skladnik 3");
+		composition.add("Skladnik 4");
 		Medicine m3 = new Medicine(3, "name3", "prod3", null);
-		m3.name="NicNieDzia³aMix";
+		m3.name="NicNieDzialaMix";
 		m3.setDescription(description);
 		m3.setInstructions(instructions);
 		m3.setMedicineComposition(composition);

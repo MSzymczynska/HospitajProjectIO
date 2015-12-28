@@ -18,6 +18,7 @@ public class Medicine extends Product {
 	}
 	public Medicine(Integer id, String name, String producer, Date expDate) {
 		super(id, name, producer, expDate);
+		this.name=name;
 	}
 	
 	public String name;

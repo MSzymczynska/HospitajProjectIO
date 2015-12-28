@@ -49,8 +49,8 @@ public class MainPanel extends JFrame {
 	
 	public MainPanel() {
 		hp = new HospitalPharmacy();
-		hp.przyk³adoweDane();
-		storageMainPanel=new StorageMainPanel();
+		hp.przykladoweDane();
+		storageMainPanel=new StorageMainPanel(hp);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 364);
