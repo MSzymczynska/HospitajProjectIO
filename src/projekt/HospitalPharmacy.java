@@ -58,10 +58,11 @@ public class HospitalPharmacy{
 			{
 				this.medicineList.get(i).quantity+=m.quantity;
 				x=true;
-			}
-			if(x==false)
-				medicineList.add(m);
+				break;
+			}				
 		}
+		if(x==false)
+		medicineList.add(m);
 			
 	}
 	

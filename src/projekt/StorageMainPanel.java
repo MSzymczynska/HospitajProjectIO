@@ -73,14 +73,14 @@ public class StorageMainPanel {
                 {
                     
                 }
-                else if(to.compareTo("Apteka") == 1)
+                else if(to.compareTo("Apteka") == 0)
                 {
-                    Medicine med = new Medicine(3, productQuantity.product.name, "prod3", null);
-                    med.quantity=productQuantity.quantity;
-                    this.hp.addMedicineToPharmecyList(med);
-                    
-                    
+//                	Medicine med = new Medicine(3, productQuantity.product.name, "prod3", null);
+//                  med.quantity=productQuantity.quantity;
+//                  this.hp.addMedicineToPharmecyList(med);
+                                                           
                 }
+                
                 
                 String id = Integer.toString(Integer.parseInt(archive.getArchive().get(archive.getArchive().size() - 1).id) + 1);
                 ProductOut p = new ProductOut(id, productQuantity, new Date(), to);
