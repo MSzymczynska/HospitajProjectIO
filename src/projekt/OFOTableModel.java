@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class OFOTableModel extends AbstractTableModel {
 
     List wordsList;
-    String headerList[] = new String[]{"Oid", "Nazwa", "Producent", "IloÅ›Ä‡", "Kiedy", "SkÄ…d", "DokÄ…d"};
+    String headerList[] = new String[]{"Oid", "Nazwa", "Producent", "Iloœæ", "Kiedy", "Sk¹d", "Dok¹d"};
 
     public OFOTableModel(List list) {
         wordsList = list;

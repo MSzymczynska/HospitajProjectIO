@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import projekt.HospitalPharmacy;
+import projekt.KitchenPanel;
 import projekt.StorageMainPanel;
 
 import java.awt.GridLayout;
