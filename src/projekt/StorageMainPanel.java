@@ -29,7 +29,8 @@ public class StorageMainPanel {
         this.ordersFromOutside = new ArrayList<ProductOrder>();
         ordersFromOutside.add(new ProductOrder("12", new ProductQuantity(new Product(1,"NAME1","PRODUCER1",new Date()), 10), new Date(), "Apteka", "Magazyn"));
         ordersFromOutside.add(new ProductOrder("13", new ProductQuantity(new Product(1,"NAME1","PRODUCER1",new Date()), 3),new Date(),"Sklep","Magazyn"));
-        
+        ordersFromOutside.add(new ProductOrder("14", new ProductQuantity(new Product(1,"lek1","PRODUCER1",new Date()), 1), new Date(), "Apteka", "Magazyn"));
+        ordersFromOutside.add(new ProductOrder("15", new ProductQuantity(new Product(1,"lek2","producebt",new Date()), 2), new Date(), "Apteka", "Magazyn"));
         
         this.archive = new StorageArchive();
         
