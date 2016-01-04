@@ -79,6 +79,7 @@ public class StorageMainPanel {
                   Medicine med = new Medicine(3, productQuantity.product.name, "prod3", null);
                   med.quantity=productQuantity.quantity;
           		  System.out.println(med.name);
+          		  hp.addMedicineToPharmecyList(med);
                                                            
                 }
                 
@@ -115,6 +116,7 @@ public class StorageMainPanel {
     public float order(ProductMovement productMovement, String from) {
         archive.addToArchive(productMovement);
         //    public ProductIn(String id, ProductQuantity productQuantity, Date date, String from)
+        moneyNeeded += 10 * productMovement.productQuantity.quantity;
         ordersFromOutside.add(new ProductOrder("19", productMovement.productQuantity, new Date(), "Sklep", "Magazyn"));
         return 1;
     }
