@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class ATableModel extends AbstractTableModel {
 
     List wordsList;
-    String headerList[] = new String[]{" ", "Aid", "Data", "Nazwa", "Producent", "IloÅ›Ä‡", "SkÄ…d", "DokÄ…d"};
+    String headerList[] = new String[]{" ", "Aid", "Data", "Nazwa", "Producent", "Iloœæ", "Sk¹d", "Dok¹d"};
 
     public ATableModel(List list) {
         wordsList = list;
