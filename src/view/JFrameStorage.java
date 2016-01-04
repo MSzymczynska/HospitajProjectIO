@@ -1,6 +1,8 @@
 package view;
 
 import java.util.Date;
+
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import projekt.ATableModel;
@@ -98,28 +100,28 @@ public class JFrameStorage extends javax.swing.JFrame {
             }
         });
 
-        bOFOShowArchive.setText("WyÅ›wietl Archiwum");
+        bOFOShowArchive.setText("Wyœwietl Archiwum");
         bOFOShowArchive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bOFOShowArchiveActionPerformed(evt);
             }
         });
 
-        bOFOShowStorage.setText("WyÅ›wietl Magazyn");
+        bOFOShowStorage.setText("Wyœwietl Magazyn");
         bOFOShowStorage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bOFOShowStorageActionPerformed(evt);
             }
         });
 
-        bOFORefresh.setText("OdÅ›wieÅ¼");
+        bOFORefresh.setText("Odœwie¿");
         bOFORefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bOFORefreshActionPerformed(evt);
             }
         });
 
-        bOFOExecute.setText("Wykonaj zamÃ³wienie");
+        bOFOExecute.setText("Wykonaj zamówienie");
         bOFOExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bOFOExecuteActionPerformed(evt);
@@ -147,9 +149,9 @@ public class JFrameStorage extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OFOLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(bOFOExecute)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bOFORefresh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bOFORefresh)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bOFOShowStorage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bOFOShowArchive)
@@ -158,7 +160,7 @@ public class JFrameStorage extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
-        bSRefresh.setText("OdÅ›wieÅ¼");
+        bSRefresh.setText("Odœwie¿");
         bSRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bSRefreshActionPerformed(evt);
@@ -172,21 +174,21 @@ public class JFrameStorage extends javax.swing.JFrame {
             }
         });
 
-        bSShowOFO.setText("WyÅ›wietl ZamÃ³wienia");
+        bSShowOFO.setText("Wyœwietl Zamówienia");
         bSShowOFO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bSShowOFOActionPerformed(evt);
             }
         });
 
-        bSShowArchive.setText("WyÅ›wietl Archiwum");
+        bSShowArchive.setText("Wyœwietl Archiwum");
         bSShowArchive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bSShowArchiveActionPerformed(evt);
             }
         });
 
-        bSOrder.setText("ZamÃ³w produkt");
+        bSOrder.setText("Zamów produkt");
         bSOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bSOrderActionPerformed(evt);
@@ -219,9 +221,9 @@ public class JFrameStorage extends javax.swing.JFrame {
                     .addComponent(bSClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(StorageLayout.createSequentialGroup()
                         .addComponent(bSOrder)
-                        .addGap(18, 18, 18)
+                        .addGap(5, 5, 5)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(5, 5, 5)
                         .addComponent(txtSHowMuch)))
                 .addGap(0, 32, Short.MAX_VALUE))
         );
@@ -234,11 +236,11 @@ public class JFrameStorage extends javax.swing.JFrame {
                     .addComponent(bSOrder)
                     .addComponent(jLabel1)
                     .addComponent(txtSHowMuch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bSRefresh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bSShowOFO)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bSRefresh)
+                .addGap(7, 7, 7)
                 .addComponent(bSShowArchive)
                 .addGap(4, 4, 4)
                 .addComponent(bSClose)
@@ -255,21 +257,21 @@ public class JFrameStorage extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tArchive);
 
-        bAShowOFO.setText("WyÅ›wietl ZamÃ³wienia");
+        bAShowOFO.setText("Wyœwietl Zamówienia");
         bAShowOFO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAShowOFOActionPerformed(evt);
             }
         });
 
-        bAShowArchive.setText("WyÅ›wietl Magazyn");
+        bAShowArchive.setText("Wyœwietl Magazyn");
         bAShowArchive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAShowArchiveActionPerformed(evt);
             }
         });
 
-        bARefresh.setText("OdÅ›wieÅ¼");
+        bARefresh.setText("Odœwie¿");
         bARefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bARefreshActionPerformed(evt);
@@ -295,19 +297,19 @@ public class JFrameStorage extends javax.swing.JFrame {
                     .addComponent(bAShowArchive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bARefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bAClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
         ArchiveLayout.setVerticalGroup(
             ArchiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ArchiveLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(bARefresh)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bAShowOFO)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bAShowArchive)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bARefresh)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bAClose)
                 .addGap(22, 22, 22))
         );
@@ -346,21 +348,26 @@ public class JFrameStorage extends javax.swing.JFrame {
 
     private void bOFOExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOFOExecuteActionPerformed
         if (tOrdersFromOutside.getSelectedRow() != -1) {
-            ProductMovement p = SMP.getOFO().get(tOrdersFromOutside.getSelectedRow());
+            ProductOrder p = SMP.getOFO().get(tOrdersFromOutside.getSelectedRow());
 
-            if (p instanceof ProductIn) {
-                ProductOrder pp = SMP.getOFO().get(tOrdersFromOutside.getSelectedRow());
-                SMP.takeIn(pp.productQuantity, pp.from);
-            } else if (p instanceof ProductOut) {
-                ProductOrder pp = SMP.getOFO().get(tOrdersFromOutside.getSelectedRow());
-                SMP.giveOut(pp.productQuantity, pp.to);
-            } else if (p instanceof ProductOrder) {
-                //tu order ze sklepu przyjdzie, trzeba sprawdzac czy mamy tyle na stanie czy trzeba zamawiac
-                ProductOrder pp = SMP.getOFO().get(tOrdersFromOutside.getSelectedRow());
-                SMP.order(p, "Sklep");
+            if (p.from.equals("Sklep") && p.to.equals("Magazyn")) {
+                SMP.takeIn(p.productQuantity, p.from);
+                ((OFOTableModel) tOrdersFromOutside.getModel()).removeRow(tOrdersFromOutside.getSelectedRow());
+            } else {
+                if(SMP.storage.getStorage(p.productQuantity.product.id).get(0).quantity >= p.productQuantity.quantity)
+                {
+                	SMP.giveOut(p.productQuantity, p.from);
+                    ((OFOTableModel) tOrdersFromOutside.getModel()).removeRow(tOrdersFromOutside.getSelectedRow());
+                }
+                else
+                {
+                	ProductOrder pp = new ProductOrder(p.id,p.productQuantity,new Date(),"Magazyn","Sklep");
+                	SMP.order(pp, "Sklep");
+                    ((OFOTableModel) tOrdersFromOutside.getModel()).fireTableDataChanged();
+                	JOptionPane.showMessageDialog(rootPane, "Niewystarczaj¹ca iloœæ produktu. Zamówiono dostawê.");
+                }
             }
 
-            ((OFOTableModel) tOrdersFromOutside.getModel()).removeRow(tOrdersFromOutside.getSelectedRow());
         }
     }//GEN-LAST:event_bOFOExecuteActionPerformed
 
@@ -410,8 +417,7 @@ public class JFrameStorage extends javax.swing.JFrame {
             if (!SMP.getArchive().isEmpty()) {
                 id = Integer.toString(Integer.parseInt(SMP.getArchive().get(SMP.getArchive().size() - 1).id) + 1);
             }
-
-            ProductOrder po = new ProductOrder(id, new ProductQuantity(p.product, Integer.parseInt(txtSHowMuch.getText())), new Date(), "", "Sklep");
+            ProductOrder po = new ProductOrder(id, new ProductQuantity(p.product, Integer.parseInt(txtSHowMuch.getText())), new Date(), "Magazyn", "Sklep");
             SMP.order(po, "Sklep");
             ((STableModel) tStorage.getModel()).fireTableDataChanged();
         }
