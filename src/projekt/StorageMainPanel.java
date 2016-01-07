@@ -29,13 +29,15 @@ public class StorageMainPanel {
         this.ordersFromOutside = new ArrayList<ProductOrder>();
         ordersFromOutside.add(new ProductOrder("12", new ProductQuantity(new Product(1,"NAME1","PRODUCER1",new Date()), 10), new Date(), "Apteka", "Magazyn"));
         ordersFromOutside.add(new ProductOrder("13", new ProductQuantity(new Product(1,"NAME1","PRODUCER1",new Date()), 3),new Date(),"Sklep","Magazyn"));
-        
+       // ordersFromOutside.add(new ProductOrder("14", new ProductQuantity(new Product(1,"lek1","PRODUCER1",new Date()), 1), new Date(), "Apteka", "Magazyn"));
+       // ordersFromOutside.add(new ProductOrder("15", new ProductQuantity(new Product(1,"lek2","producebt",new Date()), 2), new Date(), "Apteka", "Magazyn"));
         
         this.archive = new StorageArchive();
         
         this.storage = new Storage();
         storage.addToStorage(new ProductQuantity(new Product(1,"NAME1","PRODUCER1",new Date()), 5));
         storage.addToStorage(new ProductQuantity(new Product(2,"NAME2","PRODUCER2",new Date()), 7));
+        storage.addToStorage(new ProductQuantity(new Product(3,"lek1","producebt",new Date()), 7));
     }
 
     /*public static void main(String[] args) {
@@ -83,9 +85,12 @@ public class StorageMainPanel {
                                                            
                 }
                 
+                String id = "1";
                 
-                String id = Integer.toString(Integer.parseInt(archive.getArchive().get(archive.getArchive().size() - 1).id) + 1);
-                ProductOut p = new ProductOut(id, productQuantity, new Date(), to);
+                if(!archive.getArchive().isEmpty())
+                {
+                    id = Integer.toString(Integer.parseInt(archive.getArchive().get(archive.getArchive().size() - 1).id) + 1);
+                }ProductOut p = new ProductOut(id, productQuantity, new Date(), to);
                 archive.addToArchive(p);
 
                 flag = true;
