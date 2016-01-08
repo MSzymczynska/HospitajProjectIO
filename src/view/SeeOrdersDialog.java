@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import projekt.HospitalPharmacy;
 
+
 public class SeeOrdersDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();

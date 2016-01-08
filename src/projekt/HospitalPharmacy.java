@@ -1,7 +1,6 @@
 package projekt;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class HospitalPharmacy{
 	
@@ -21,6 +20,7 @@ public class HospitalPharmacy{
 	public String madeMedicinesToString() {
 		return "[madeMedicines=" + madeMedicines + "]";
 	}
+	
 	public ArrayList<FormField> getOrderedMedicine() {
 		ArrayList<FormField> ordered= new ArrayList<FormField>();
 		for(int i=0; i<orderedMedicine.size(); i++)
@@ -39,17 +39,19 @@ public class HospitalPharmacy{
 		}
 		return delivered;
 	}
+	
 	public ArrayList<Medicine> getPharmacyMedicine(){
-
 		return this.medicineList;
 	}
+	
 	public ArrayList<FormField> getPharmacyArchieve() {
 		return pharmacyArchieve;
 	}
+	
 	public void orderMedForPatient(int medId, int quantity, int patientId) {
-		
-		
+			
 	}
+	
 	public void addMedicineToPharmecyList(Medicine m) {
 		System.out.println(m.name);
 		boolean x=false;

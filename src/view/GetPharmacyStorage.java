@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import projekt.HospitalPharmacy;
-import projekt.Medicine;
 
 public class GetPharmacyStorage extends JDialog {
 

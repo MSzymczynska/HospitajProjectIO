@@ -1,7 +1,5 @@
 package projekt;
 
-import java.util.Date;
-
 public class FormField {
 	private String onWhenOrdered;
 	private int orderedMedicineId;
