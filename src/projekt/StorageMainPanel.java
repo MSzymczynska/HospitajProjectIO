@@ -17,160 +17,23 @@ import javax.swing.JOptionPane;
  */
 public class StorageMainPanel {
 
-<<<<<<< HEAD
-	public Storage storage;
-	public StorageArchive archive;
-	private float moneyNeeded;
-	public List<ProductOrder> ordersFromOutside;
-	public HospitalPharmacy hp;
-	public KitchenPanel k;
 
-	public StorageMainPanel(HospitalPharmacy hp) {
-		this.hp = hp;
-		this.ordersFromOutside = new ArrayList<ProductOrder>();
-		this.archive = new StorageArchive(this);
-		this.storage = new Storage();
-	}
-
-	public boolean giveOut(ProductQuantity productQuantity, String to) {
-		boolean flag = false;
-
-		if (storage.getStorage(productQuantity.product.id).isEmpty()
-				|| storage.getStorage(productQuantity.product.id).get(0).quantity < productQuantity.quantity) {
-			flag = false;
-		} else {
-			storage.removeFromStorage(productQuantity);
-
-			if (to.equals("Kuchnia")) {
-				KitchenPanel.getInstance().addProductQuantity(productQuantity);
-			} else if (to.equals("Apteka")) {
-				Medicine med = new Medicine(3, productQuantity.product.name, "prod3", null);
-				med.quantity = productQuantity.quantity;
-				System.out.println(med.name);
-				hp.addMedicineToPharmecyList(med);
-			}
-
-			String id = "1";
-
-			if (!archive.getArchive().isEmpty()) {
-				id = Integer
-						.toString(Integer.parseInt(archive.getArchive().get(archive.getArchive().size() - 1).id) + 1);
-			}
-			ProductOrder p = new ProductOrder(id, productQuantity, new Date(), "Magazyn", to);
-			archive.addToArchive(p);
-
-			flag = true;
-		}
-		if (flag) {
-			storage.sendToDB();
-		}
-		return flag;
-	}
-
-	public boolean takeIn(ProductQuantity productQuantity, String from) {
-		boolean flag = false;
-
-		storage.addToStorage(productQuantity);
-
-		String id = "1";
-
-		if (!archive.getArchive().isEmpty()) {
-			id = Integer.toString(Integer.parseInt(archive.getArchive().get(archive.getArchive().size() - 1).id) + 1);
-		}
-
-		ProductOrder p = new ProductOrder(id, productQuantity, new Date(), from, "Magazyn");
-
-		archive.addToArchive(p);
-		return true;
-	}
-
-	public float order(ProductMovement productMovement, String from) {
-		moneyNeeded += 10 * productMovement.productQuantity.quantity;
-
-		String tmpID = "0";
-		for (int i = 1; i < ordersFromOutside.size(); i++) {
-			if (Integer.parseInt(ordersFromOutside.get(i).id) > Integer.parseInt(tmpID))
-				tmpID = ordersFromOutside.get(i).id;
-		}
-		tmpID = String.valueOf(Integer.parseInt(tmpID) + 1);
-		ordersFromOutside.add(new ProductOrder(tmpID, productMovement.productQuantity, new Date(), "Sklep", "Magazyn"));
-		archive.addToArchive(productMovement);
-		return 1;
-	}
-
-	public boolean orderFromOutside(ProductQuantity pq, String from) {
-		String tmpID = "0";
-		for (int i = 1; i < ordersFromOutside.size(); i++) {
-			if (Integer.parseInt(ordersFromOutside.get(i).id) > Integer.parseInt(tmpID))
-				tmpID = ordersFromOutside.get(i).id;
-		}
-		tmpID = String.valueOf(Integer.parseInt(tmpID) + 1);
-		ordersFromOutside.add(new ProductOrder(tmpID, pq, new Date(), from, "Magazyn"));
-		archive.sendToDB();
-		return true;
-	}
-
-	public List<ProductOrder> getOFO() {
-		return ordersFromOutside;
-	}
-
-	public List<ProductQuantity> getStorage() {
-		return storage.getStorage();
-	}
-
-	public List<ProductMovement> getArchive() {
-		return archive.getArchive();
-	}
-
-	public float getMoneyNeeded() {
-		return moneyNeeded;
-	}
-=======
     public Storage storage;
-    private StorageArchive archive;
+    public StorageArchive archive;
     private float moneyNeeded;
-    private List<ProductOrder> ordersFromOutside;
+    public List<ProductOrder> ordersFromOutside;
     public HospitalPharmacy hp;
     public KitchenPanel k;
 
     public StorageMainPanel(HospitalPharmacy hp) {
     	this.hp=hp;
         this.ordersFromOutside = new ArrayList<ProductOrder>();
-        ordersFromOutside.add(new ProductOrder("12", new ProductQuantity(new Product(1,"NAME1","PRODUCER1",new Date()), 10), new Date(), "Apteka", "Magazyn"));
-        ordersFromOutside.add(new ProductOrder("13", new ProductQuantity(new Product(1,"NAME1","PRODUCER1",new Date()), 3),new Date(),"Sklep","Magazyn"));
-       // ordersFromOutside.add(new ProductOrder("14", new ProductQuantity(new Product(1,"lek1","PRODUCER1",new Date()), 1), new Date(), "Apteka", "Magazyn"));
-       // ordersFromOutside.add(new ProductOrder("15", new ProductQuantity(new Product(1,"lek2","producebt",new Date()), 2), new Date(), "Apteka", "Magazyn"));
-        
-        this.archive = new StorageArchive();
-        
+        this.archive = new StorageArchive(this);
         this.storage = new Storage();
-        storage.addToStorage(new ProductQuantity(new Product(1,"NAME1","PRODUCER1",new Date()), 5));
-        storage.addToStorage(new ProductQuantity(new Product(2,"NAME2","PRODUCER2",new Date()), 7));
-        storage.addToStorage(new ProductQuantity(new Product(3,"lek1","producebt",new Date()), 7));
     }
 
     /*public static void main(String[] args) {
     }*/
-
-    public boolean logIn() {
-        return true;
-    }
-
-    public boolean logOut() {
-        return true;
-    }
-
-    public void exit() {
-
-    }
-
-    public boolean showStorage() {
-        return true;
-    }
-
-    public boolean showArchive() {
-        return true;
-    }
 
     public boolean giveOut(ProductQuantity productQuantity, String to) {
         boolean flag = false;
@@ -199,7 +62,7 @@ public class StorageMainPanel {
                 if(!archive.getArchive().isEmpty())
                 {
                     id = Integer.toString(Integer.parseInt(archive.getArchive().get(archive.getArchive().size() - 1).id) + 1);
-                }ProductOut p = new ProductOut(id, productQuantity, new Date(), to);
+                }ProductOrder p = new ProductOrder(id, productQuantity, new Date(), "Magazyn", to);
                 archive.addToArchive(p);
 
                 flag = true;
@@ -220,7 +83,7 @@ public class StorageMainPanel {
             id = Integer.toString(Integer.parseInt(archive.getArchive().get(archive.getArchive().size() - 1).id) + 1);
         }
         
-        ProductIn p = new ProductIn(id, productQuantity, new Date(), from);
+        ProductOrder p = new ProductOrder(id, productQuantity, new Date(), from, "Magazyn");
         
         archive.addToArchive(p);
 
@@ -228,10 +91,15 @@ public class StorageMainPanel {
     }
 
     public float order(ProductMovement productMovement, String from) {
-        archive.addToArchive(productMovement);
-        //    public ProductIn(String id, ProductQuantity productQuantity, Date date, String from)
         moneyNeeded += 10 * productMovement.productQuantity.quantity;
-        ordersFromOutside.add(new ProductOrder("19", productMovement.productQuantity, new Date(), "Sklep", "Magazyn"));
+        String tmpID = "0";
+		for (int i = 1; i < ordersFromOutside.size(); i++) {
+			if (Integer.parseInt(ordersFromOutside.get(i).id) > Integer.parseInt(tmpID))
+				tmpID = ordersFromOutside.get(i).id;
+		}
+		tmpID = String.valueOf(Integer.parseInt(tmpID) + 1);
+        ordersFromOutside.add(new ProductOrder(tmpID, productMovement.productQuantity, new Date(), "Sklep", "Magazyn"));
+        archive.addToArchive(productMovement);
         return 1;
     }
     
@@ -239,8 +107,15 @@ public class StorageMainPanel {
     {
     	//to ponizej z nullami nie dzialalo, ale z danymi zadzia³a³o xD
         //ordersFromOutside.add(new ProductOrder(null,pq,null,from,"Magazyn"));
-        ordersFromOutside.add(new ProductOrder("19", pq, new Date(), from, "Magazyn"));
-    	return true;
+		String tmpID = "0";
+		for (int i = 1; i < ordersFromOutside.size(); i++) {
+			if (Integer.parseInt(ordersFromOutside.get(i).id) > Integer.parseInt(tmpID))
+				tmpID = ordersFromOutside.get(i).id;
+		}
+		tmpID = String.valueOf(Integer.parseInt(tmpID) + 1);
+		ordersFromOutside.add(new ProductOrder(tmpID, pq, new Date(), from, "Magazyn"));
+		archive.sendToDB();
+		return true;
     }
 
     public List<ProductOrder> getOFO()
@@ -261,5 +136,4 @@ public class StorageMainPanel {
     public float getMoneyNeeded() {
         return moneyNeeded;
     }
->>>>>>> refs/remotes/MSzymczynska/master
 }
