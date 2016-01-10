@@ -1,10 +1,14 @@
 package view;
 
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
 
 import projekt.Appointment;
 import projekt.AppointmentsTable;
@@ -15,14 +19,6 @@ import projekt.Interview;
 import projekt.InterviewsTable;
 import projekt.MedicineRequirement;
 import projekt.MedicineRequirementsTable;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.BorderLayout;
 
 public class PatientsCardView extends JFrame {
 
