@@ -1,21 +1,31 @@
 package projekt;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.ResultSet;
+
 public class HospitalPharmacy{
 	
-	public HospitalPharmacy() {
+	public HospitalPharmacy(Connection con) {
 		orderedMedicine = new ArrayList<>();
 		medicineList = new ArrayList<>();
 		pharmacyArchieve = new ArrayList<>();
 		madeMedicines = new ArrayList<>();
+		deliveredMedicines=new ArrayList<>();
+		this.con=con;
+		
 	}
 	
 	public ArrayList<Medicine> medicineList;
-	private ArrayList<FormField> orderedMedicine;
+	public ArrayList<FormField> orderedMedicine;
 	private ArrayList<FormField> pharmacyArchieve;
 	private ArrayList<Medicine> madeMedicines;
+	public ArrayList<FormField> deliveredMedicines;
+	public Connection con;
 	
 	
 	public String madeMedicinesToString() {
@@ -79,64 +89,49 @@ public class HospitalPharmacy{
 		madeMedicines.add(m);
 	}
 	
-	public void przykladoweDane(){
-		int quantity = 0;
-		String description = "Lek na glowe.";
-		String instructions = "Bierzesz sklad 1 * 0.1. Dodajesz sklad 2 * 1. Mieszasz. Dodajesz sklad 3 * 0.5 + sklad 4 * 0.6 i podgrzewasz.";
-		ArrayList<String> composition = new ArrayList();
-		composition.add("sklad 1");
-		composition.add("sklad 2");
-		composition.add("sklad 3");
-		composition.add("sklad 4");
-		Medicine m1 = new Medicine(1, "name1", "prod1", null);
-		m1.name="Hexodumox";
-		m1.setDescription(description);
-		m1.setInstructions(instructions);
-		m1.setMedicineComposition(composition);
-		m1.quantity = quantity;
-		m1.setCanCreate(true);
-		medicineList.add(m1);
-		composition = new ArrayList<>();
-		description = "Lek na wszystko.";
-		instructions = "Laczysz wszystko w ilosciach 1";
-		composition.add("S 1");
-		composition.add("S 2");
-		composition.add("S 3");
-		composition.add("S 4");
-		Medicine m2 =new Medicine(2, "name2", "prod2", null);
-		m2.name="Wszystkonix";
-		m2.setDescription(description);
-		m2.setInstructions(instructions);
-		m2.setMedicineComposition(composition);
-		m2.quantity = quantity;
-		m2.setCanCreate(true);
-		medicineList.add(m2);
-		composition = new ArrayList<>();
-		description = "Lek na nic.";
-		instructions = "Laczysz wszystko. Podgrzewasz. Dodajesz wode.";
-		composition.add("Skladnik 1");
-		composition.add("Skladnik 2");
-		composition.add("Skladnik 3");
-		composition.add("Skladnik 4");
-		Medicine m3 = new Medicine(3, "name3", "prod3", null);
-		m3.name="NicNieDzialaMix";
-		m3.setDescription(description);
-		m3.setInstructions(instructions);
-		m3.setMedicineComposition(composition);
-		m3.quantity = quantity;
-		m3.setCanCreate(true);
-		medicineList.add(m3);
-		Medicine lek1= new Medicine(4, "name4", "prod4", null);
-		lek1.name="lek1";
-		lek1.quantity=5;
-		medicineList.add(lek1);
-		Medicine lek2= new Medicine(5, "name5", "prod5", null);
-		lek2.name="lek2";
-		lek2.quantity=10;
-		medicineList.add(lek2);
-		Medicine lek3= new Medicine(5, "name6", "prod6", null);
-		lek3.name="lek3";
-		lek3.quantity=15;
-		medicineList.add(lek3);
+	public void przykladoweDane(){		
+
+		try {
+			PreparedStatement query1=(PreparedStatement) con.prepareStatement("select m.medicine_id, p.title, p.producent, m.quantity_in_pharmacy, m.isMadeMedicine from pharmacy_medicines m, products p where p.product_id=m.product_id");
+			ResultSet result=(ResultSet) query1.executeQuery();
+			while(result.next())
+			{
+				Medicine m = new Medicine(Integer.parseInt(result.getString(1)), result.getString(2), result.getString(3), null);				
+				m.quantity=Integer.parseInt(result.getString(4));
+				int x =Integer.parseInt(result.getString(5));
+				if(x==1)
+					m.canCreate=true;
+				if(x==0)
+					m.canCreate=false;
+
+				if(m.canCreate)
+				{
+					PreparedStatement query2=(PreparedStatement) con.prepareStatement("select p.title from products p, composition_list c where c.product_id=p.product_id and c.medicine_id="+m.id);
+					ResultSet result2=(ResultSet) query2.executeQuery();
+					
+					ArrayList<String> composition = new ArrayList();
+					while(result2.next())
+					{
+						composition.add(result2.getString(1));
+						System.out.println(result2.getString(1));
+					}
+					m.setMedicineComposition(composition);			
+				}
+				
+				PreparedStatement query3=(PreparedStatement) con.prepareStatement("select description, instructions from pharmacy_medicines where medicine_id="+m.id);
+				ResultSet result3=(ResultSet) query3.executeQuery();
+				while(result3.next())
+				{
+				m.setDescription(result3.getString(1));
+				m.setInstructions(result3.getString(2));
+				}
+				medicineList.add(m);
+				
+			}			
+		} catch (SQLException e) {
+			System.out.println( e.getMessage() );
+		}
+		
+				
 	}
 }
