@@ -10,7 +10,7 @@ public class FormField {
 	private boolean isDelivered;
 	private String whenOrderedDate;
 	private String userWhoOrdered;
-	public String FormFieldId;
+	public int FormFieldId;
 	
 //	public FormField(String userWhoOrdered, Date onWhenOrdered, int orderedMedicineId, int patientId, int amount,
 //			boolean isDelivered, Date whenOrderedDate) {

@@ -54,7 +54,7 @@ public class MakeMedicine extends JDialog {
 		}
 		String medName[] = new String[m2.size()];
 		for(int i=0; i<m2.size(); i++) {
-			medName[i] = m.get(i).name;
+			medName[i] = m2.get(i).name;
 		}
 		
 		JLabel lblOpisLeku = new JLabel("Opis leku:");
@@ -71,18 +71,18 @@ public class MakeMedicine extends JDialog {
 		comboBox.addItemListener(new ItemListener(){
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				txtpnOpisleku.setText(m.get(comboBox.getSelectedIndex()).getDescription());
-				txtpnInstrukcjatworzenia.setText(m.get(comboBox.getSelectedIndex()).getInstructions());
-				txtpnSkladniki.setText(m.get(comboBox.getSelectedIndex()).getComposition());
+				txtpnOpisleku.setText(m2.get(comboBox.getSelectedIndex()).getDescription());
+				txtpnInstrukcjatworzenia.setText(m2.get(comboBox.getSelectedIndex()).getInstructions());
+				txtpnSkladniki.setText(m2.get(comboBox.getSelectedIndex()).getComposition());
 			}
 		});
 		
 		int selectedMed = comboBox.getSelectedIndex();
-		description = m.get(selectedMed).getDescription();
-		instruction = m.get(selectedMed).getInstructions();
-		composition = m.get(selectedMed).getComposition();
+		description = m2.get(selectedMed).getDescription();
+		instruction = m2.get(selectedMed).getInstructions();
+		composition = m2.get(selectedMed).getComposition();
 		
-		txtpnOpisleku.setText(m.get(0).getDescription());
+		txtpnOpisleku.setText(m2.get(0).getDescription());
 		txtpnOpisleku.setBounds(10, 67, 414, 52);
 		contentPanel.add(txtpnOpisleku);
 		
@@ -90,7 +90,7 @@ public class MakeMedicine extends JDialog {
 		lblInstrukcjaTworzenia.setBounds(10, 130, 150, 14);
 		contentPanel.add(lblInstrukcjaTworzenia);
 		
-		txtpnInstrukcjatworzenia.setText( m.get(0).getInstructions());
+		txtpnInstrukcjatworzenia.setText( m2.get(0).getInstructions());
 		txtpnInstrukcjatworzenia.setBounds(10, 155, 414, 52);
 		contentPanel.add(txtpnInstrukcjatworzenia);
 		
@@ -98,7 +98,7 @@ public class MakeMedicine extends JDialog {
 		lblSkadniki.setBounds(10, 218, 150, 14);
 		contentPanel.add(lblSkadniki);
 		
-		txtpnSkladniki.setText(m.get(0).getComposition());
+		txtpnSkladniki.setText(m2.get(0).getComposition());
 		txtpnSkladniki.setBounds(10, 243, 414, 52);
 		contentPanel.add(txtpnSkladniki);
 		
@@ -110,8 +110,12 @@ public class MakeMedicine extends JDialog {
 				JButton okButton = new JButton("Stwórz");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int medicineId = comboBox.getSelectedIndex();
-						m.get(medicineId).quantity += 1;
+						String medicineName = comboBox.getSelectedItem().toString();
+						for(int i=0; i<m.size();i++)
+						{
+							if(medicineName==m.get(i).name)
+								m.get(i).quantity += 1;
+						}
 						hospitalPharmacyWindow.setVisible(true);
 						System.out.print(hospitalPharmacy.madeMedicinesToString());
 						dispose();

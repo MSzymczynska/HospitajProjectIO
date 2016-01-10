@@ -8,6 +8,11 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.ResultSet;
+import com.mysql.jdbc.Statement;
+
 import projekt.FormField;
 import projekt.HospitalPharmacy;
 import projekt.Medicine;
@@ -19,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,15 +38,18 @@ public class FormFieldDialog extends JDialog {
 	private JTextField onWhenOrdered;
 	private JTextField amount;
 	SimpleDateFormat formatter;
+	private int medicineId=0;
+	private int patientId=0;
+	private int form_field_id=0;
 	
-	public FormFieldDialog(HospitalPharmacyWindow hospitalPharmacyWindow, FormField formField, HospitalPharmacy hospitalPharmacy, boolean isNew) {
+	public FormFieldDialog(Connection con, HospitalPharmacyWindow hospitalPharmacyWindow, FormField formField, HospitalPharmacy hospitalPharmacy, boolean isNew) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				hospitalPharmacyWindow.setVisible(true);
+				//hospitalPharmacyWindow.setVisible(true);
 			}
 		});
-		
+		int whoOrdered =101;
 		setBounds(100, 100, 500, 400);
 		setVisible(true);
 		hospitalPharmacyWindow.setVisible(false);
@@ -54,9 +63,9 @@ public class FormFieldDialog extends JDialog {
 		contentPanel.add(lblZamawiajcy);
 		
 		//to mo¿e uzupe³niaæ siê automatycznie pobieraj¹c nazwisko zamawiaj¹cego, albo jego id. lepiej chyba nazwisko
-		JLabel whoOrdered = new JLabel("osoba");
-		whoOrdered.setBounds(10, 36, 46, 14);
-		contentPanel.add(whoOrdered);
+		JLabel whoOrderedL = new JLabel(Integer.toString(whoOrdered));
+		whoOrderedL.setBounds(10, 36, 46, 14);
+		contentPanel.add(whoOrderedL);
 		
 		JLabel lblLek = new JLabel("Lek");
 		lblLek.setBounds(10, 78, 46, 14);
@@ -72,7 +81,7 @@ public class FormFieldDialog extends JDialog {
 		
 		//String przyk³adowatablicaleki[]={"qwe","tyu","poi"};
 		JComboBox comboBoxMedicine = new JComboBox(medName);
-		if(!isNew) comboBoxMedicine.setSelectedIndex(formField.getOrderedMedicineId());
+		if(!isNew) comboBoxMedicine.setSelectedIndex(formField.getOrderedMedicineId()-1);
 		comboBoxMedicine.setBounds(10, 103, 299, 20);
 		contentPanel.add(comboBoxMedicine);
 		
@@ -80,10 +89,36 @@ public class FormFieldDialog extends JDialog {
 		lblPacjent.setBounds(125, 11, 46, 14);
 		contentPanel.add(lblPacjent);
 		
-		//mo¿e imiê i nazwisko pacjenta,¿eby nie wpisywaæ z palca. i na diagramie klas wtedy jeszcze zmieniæ z id na name
-		String przyk³adowatablicapacjenci[] = {"Janusz", "Mietek", "Gertruda"};
-		JComboBox comboBoxPatient = new JComboBox(przyk³adowatablicapacjenci);
-		if(!isNew) comboBoxPatient.setSelectedIndex(formField.getPatientId());
+		String patients[];
+		String curDate=null;
+		PreparedStatement query1, query2, query3;
+		try {
+			query1 = (PreparedStatement) con.prepareStatement("select patient_id, first_name, last_name from patients");
+			ResultSet result=(ResultSet) query1.executeQuery();
+			
+			query2 = (PreparedStatement) con.prepareStatement("select count(*) from patients");
+			ResultSet result2=(ResultSet) query2.executeQuery();
+			
+			query3 = (PreparedStatement) con.prepareStatement("select CURDATE()");
+			ResultSet result3=(ResultSet) query3.executeQuery();
+			while(result3.next())
+			curDate=result3.getString(1);
+			int i=0;
+			while(result2.next())
+			i=Integer.parseInt(result2.getString(1));
+			patients=new String[i];
+			int j=0;
+			while(result.next()){
+				patients[j]=result.getString(2)+ " " + result.getString(3);
+				j++;
+			}
+		} catch (SQLException e1) {
+			patients=null;
+			System.out.print(e1.getMessage());
+		}
+		
+		JComboBox comboBoxPatient = new JComboBox(patients);
+		if(!isNew) comboBoxPatient.setSelectedIndex(formField.getPatientId()-1);
 		comboBoxPatient.setBounds(125, 33, 161, 20);
 		contentPanel.add(comboBoxPatient);
 		
@@ -92,11 +127,9 @@ public class FormFieldDialog extends JDialog {
 		contentPanel.add(lblData);
 		
 		whenOrdered = new JTextField();
-		whenOrdered.setText("13-12-2015");
-		//if(!isNew) whenOrdered.setText(formField.getWhenOrderedDate().toString());
-		//else whenOrdered.setText(formField.getWhenOrderedDate().toString());
-		//Date whenD;
-		formatter = new SimpleDateFormat("dd-MM-yyyy");
+		whenOrdered.setText(curDate);
+
+		formatter = new SimpleDateFormat("yyyy-MM-dd");
 		//whenD = formField.getWhenOrderedDate();
 		whenOrdered.setBounds(10, 181, 86, 20);
 		contentPanel.add(whenOrdered);
@@ -107,9 +140,7 @@ public class FormFieldDialog extends JDialog {
 		contentPanel.add(lblZmwienieNa);
 		
 		onWhenOrdered = new JTextField();
-		onWhenOrdered.setText("23-12-2015");
-		//if(!isNew) onWhenOrdered.setText(formField.getOnWhenOrdered().toString());
-		//else onWhenOrdered.setText(formField.getOnWhenOrdered().toString());
+		onWhenOrdered.setText(curDate);
 		onWhenOrdered.setBounds(125, 181, 86, 20);
 		contentPanel.add(onWhenOrdered);
 		onWhenOrdered.setColumns(10);
@@ -148,36 +179,27 @@ public class FormFieldDialog extends JDialog {
 									JOptionPane.ERROR_MESSAGE);
 						}
 						else {
-							
+							String MedicineName;
 							boolean status=false;
-							int medicineId=0;
-							int patientId=0;
 							String patientName;
 							Date when=null;
 							Date onWhen=null;
 							try {
-//								Date when=null;
-//								Date onWhen=null;
+
 								when = formatter.parse(whenOrdered.getText());					
 								onWhen = formatter.parse(onWhenOrdered.getText());
 								status = false;
 								if(comboBoxIsDelivered.getSelectedIndex()==1)
 									status = true;
-								medicineId = comboBoxMedicine.getSelectedIndex();
-								patientId = comboBoxPatient.getSelectedIndex();
+								MedicineName=comboBoxMedicine.getSelectedItem().toString();
+								for(int i=0; i<hospitalPharmacy.medicineList.size();i++)
+								{
+									if(MedicineName==hospitalPharmacy.medicineList.get(i).name)
+										medicineId=hospitalPharmacy.medicineList.get(i).id;
+								}
+								patientId = comboBoxPatient.getSelectedIndex()+1;
 								patientName=comboBoxPatient.getSelectedItem().toString();
-//								formField.setAmount(Integer.parseInt(amount.getText()));
-//								formField.setDelivered(status);
-//								formField.setOnWhenOrdered(onWhen);
-//								formField.setOrderedMedicineId(medicineId);
-//								formField.setPatientId(patientId);
-//								formField.setUserWhoOrdered(whoOrdered.getText());
-//								formField.setWhenOrderedDate(when);
-//								hospitalPharmacy.addOrderedMedicine(formField);
-								//System.out.print(hospitalPharmacy.getOrderedMedicine().get(0).toString());
-							//	FormField formField = new FormField(whoOrdered.getText(), when, medicineId, patientId, Integer.parseInt(amount.getText()), status, onWhen);
-							//	hospitalPharmacyWindow.setVisible(true);
-								//dispose();
+
 							} catch (NumberFormatException a) {
 								JOptionPane.showMessageDialog(null, 
 										"Podano niepoprawn¹ iloœæ",
@@ -190,20 +212,60 @@ public class FormFieldDialog extends JDialog {
 										JOptionPane.ERROR_MESSAGE);
 							}
 							finally{
-								System.out.print(formField.FormFieldId="medId"+medicineId+"whoOrder"+whoOrdered.getText()+when);
+								//System.out.print(formField.FormFieldId="medId"+medicineId+"whoOrder"+whoOrdered.getText()+when);
+								//formField.FormFieldId=form_field_id;
 								formField.setAmount(Integer.parseInt(amount.getText()));
 								formField.setDelivered(status);
 								formField.setOnWhenOrdered(formatter.format(onWhen));
 								formField.setOrderedMedicineId(medicineId);
 								formField.setPatientId(patientId);
-								formField.setUserWhoOrdered(whoOrdered.getText());
+								formField.setUserWhoOrdered(whoOrderedL.getText());
 								formField.setWhenOrderedDate(formatter.format(when));
-							//	System.out.print(formField.toString());		
-								if(isNew){ hospitalPharmacy.addOrderedMedicine(formField);}
+								if(!isNew){
+									Statement stmt = null;
+										PreparedStatement query1;									
+											try {
+												//stmt = (Statement) con.createStatement();
+											      //String sql = "update form_field set on_when_ordered=\""+onWhenOrdered.getText()+"\", ordered_medicine_id="+formField.getOrderedMedicineId()+", patient_id="+formField.getPatientId()+", amount="+formField.getAmount()+", is_delivered="+formField.isDelivered()+", when_ordered_date=\""+whenOrdered.getText()+"\" where form_field_id="+form_field_id;
+											      //stmt.executeUpdate(sql);
+												int x;
+												if(formField.isDelivered()) x=1;
+												else x=0;
+												System.out.println(onWhenOrdered.getText()+ " " + formField.getOrderedMedicineId() + " " +  formField.getPatientId() + formField.FormFieldId);
+												query1 = (PreparedStatement) con.prepareStatement("update form_field set on_when_ordered=\""+onWhenOrdered.getText()+"\", ordered_medicine_id="+formField.getOrderedMedicineId()+", patient_id="+formField.getPatientId()+", amount="+formField.getAmount()+", is_delivered="+x+", when_ordered_date=\""+whenOrdered.getText()+"\" where form_field_id="+formField.FormFieldId);
+												query1.executeUpdate();											
+											} catch (SQLException e1) {
+												System.out.print(e1.getMessage());
+											}
+									
+								}
+									
+								if(isNew){ 
+									
+									PreparedStatement query1, query2;									
+									
+										try {
+											query1 = (PreparedStatement) con.prepareStatement("select count(*) from form_field");
+											ResultSet result=(ResultSet) query1.executeQuery();
+											while(result.next()) form_field_id=Integer.parseInt(result.getString(1))+1;
+											int x;
+											if(formField.isDelivered()) x=1;
+											else x=0;
+											query2 = (PreparedStatement) con.prepareStatement("insert into form_field values ("+form_field_id+", "+ "\""+onWhenOrdered.getText()+"\""+", "+medicineId+", "+patientId+", "+formField.getAmount()+", "+x+", \""+whenOrdered.getText()+"\", "+whoOrdered+");");
+											query2.executeUpdate();
+										
+										} catch (SQLException e1) {
+											System.out.print(e1.getMessage());
+										}
+										
+									hospitalPharmacy.addOrderedMedicine(formField);
+									}
+								
 								if(formField.isDelivered()) {
 									int quantity = hospitalPharmacy.getPharmacyMedicine().get(medicineId).quantity;
 									if(quantity>=Integer.parseInt(amount.getText())) {
-										hospitalPharmacy.getPharmacyMedicine().get(medicineId).quantity = quantity-Integer.parseInt(amount.getText());
+										//tu moznaby napisac tez updae w bazie ale nie bede tego robic zeby zawsze nam sie zmianialy dane tylko w programie
+										hospitalPharmacy.getPharmacyMedicine().get(medicineId-1).quantity = quantity-Integer.parseInt(amount.getText());
 										hospitalPharmacyWindow.setVisible(true);
 										
 										dispose();
@@ -217,7 +279,6 @@ public class FormFieldDialog extends JDialog {
 									}
 								}
 								else {
-								//System.out.print(hospitalPharmacy.getOrderedMedicine().get(0).toString());
 								hospitalPharmacyWindow.setVisible(true);
 								
 								dispose();
