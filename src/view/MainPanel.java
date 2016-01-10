@@ -1,25 +1,16 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import projekt.HospitalPharmacy;
-import projekt.KitchenPanel;
 import projekt.StorageMainPanel;
-
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class MainPanel extends JFrame {
 
