@@ -2,7 +2,6 @@ package projekt;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;

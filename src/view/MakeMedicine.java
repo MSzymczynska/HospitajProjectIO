@@ -11,16 +11,15 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
 import projekt.HospitalPharmacy;
 import projekt.Medicine;
-
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JTextPane;
 
 public class MakeMedicine extends JDialog {
 

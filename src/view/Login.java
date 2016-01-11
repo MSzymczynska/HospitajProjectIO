@@ -5,7 +5,6 @@
  */
 package view;
 
-import projekt.Accounts;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 

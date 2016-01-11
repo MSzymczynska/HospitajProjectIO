@@ -7,6 +7,7 @@ package projekt;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -36,7 +37,7 @@ public class OFOTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int row, int column) {
         ProductOrder entity = null;
-        entity = (ProductOrder) wordsList.get(row);
+		entity = (ProductOrder) wordsList.get(row);
 
         switch (column) {
 
