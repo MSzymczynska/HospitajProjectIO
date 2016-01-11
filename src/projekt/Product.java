@@ -62,4 +62,9 @@ public class Product {
     int compareTo(Product product) {
         return (Integer)(this.id.compareTo(product.id));
     }
+    
+    @Override 
+    public String toString() {
+    	return this.name;
+    }
 }
