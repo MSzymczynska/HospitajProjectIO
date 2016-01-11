@@ -33,4 +33,9 @@ public class ProductQuantity {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+    
+    @Override 
+    public String toString() {
+    	return this.product.toString() + " [" + this.quantity + "]\n";
+    }
 }
