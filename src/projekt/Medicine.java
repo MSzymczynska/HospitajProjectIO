@@ -26,7 +26,7 @@ public class Medicine extends Product {
 	private String medicineDescription;
 	private String instructionsToPrepareMedicine;
 	public int quantity;
-	private boolean canCreate;
+	public boolean canCreate;
 	
 
 	//	public Medicine(String name, String medicineDescription, String instructionsToPrepareMedicine, ArrayList<String> medicineComposition) {
@@ -54,7 +54,15 @@ public class Medicine extends Product {
 		this.medicineDescription = description;
 	}
 	public String getComposition(){
-		return medicineComposition.toString();
+		String x= new String();
+		for (int i=0;i<this.medicineComposition.size(); i++)
+		{
+			if(i==0)
+			x= this.medicineComposition.get(i);
+			else
+			x= x +", "+this.medicineComposition.get(i);
+		}
+		return x;
 	}
 	public void setMedicineComposition(ArrayList<String> medicineComposition) {
 		this.medicineComposition = medicineComposition;

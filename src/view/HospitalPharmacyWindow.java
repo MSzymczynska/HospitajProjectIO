@@ -32,7 +32,7 @@ public class HospitalPharmacyWindow extends JFrame{
 		newOrderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FormField ff = new FormField();
-				FormFieldDialog ffd = new FormFieldDialog(hospitalPharmacyWindow, ff, hospitalPharmacy, true);
+				FormFieldDialog ffd = new FormFieldDialog(hospitalPharmacy.con, hospitalPharmacyWindow, ff, hospitalPharmacy, true);
 			}
 		});
 		newOrderButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
