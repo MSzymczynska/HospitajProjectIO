@@ -5,6 +5,7 @@
  */
 package projekt;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,7 @@ public class StorageMainPanel {
             }
         else {
                 storage.removeFromStorage(productQuantity);
-                
+                System.out.println(to);
                 if(to.equals("Kuchnia"))
                 {
                     KitchenPanel.getInstance().addProductQuantity(productQuantity);
@@ -62,7 +63,7 @@ public class StorageMainPanel {
                 if(!archive.getArchive().isEmpty())
                 {
                     id = Integer.toString(Integer.parseInt(archive.getArchive().get(archive.getArchive().size() - 1).id) + 1);
-                }ProductOrder p = new ProductOrder(id, productQuantity, new Date(), "Magazyn", to);
+                }ProductOrder p = new ProductOrder(id, productQuantity, new Timestamp(new Date().getTime()), "Magazyn", to);
                 archive.addToArchive(p);
 
                 flag = true;
@@ -83,7 +84,7 @@ public class StorageMainPanel {
             id = Integer.toString(Integer.parseInt(archive.getArchive().get(archive.getArchive().size() - 1).id) + 1);
         }
         
-        ProductOrder p = new ProductOrder(id, productQuantity, new Date(), from, "Magazyn");
+        ProductOrder p = new ProductOrder(id, productQuantity, new Timestamp(new Date().getTime()), from, "Magazyn");
         
         archive.addToArchive(p);
 
@@ -98,7 +99,7 @@ public class StorageMainPanel {
 				tmpID = ordersFromOutside.get(i).id;
 		}
 		tmpID = String.valueOf(Integer.parseInt(tmpID) + 1);
-        ordersFromOutside.add(new ProductOrder(tmpID, productMovement.productQuantity, new Date(), "Sklep", "Magazyn"));
+        ordersFromOutside.add(new ProductOrder(tmpID, productMovement.productQuantity, new Timestamp(new Date().getTime()), "Sklep", "Magazyn"));
         archive.addToArchive(productMovement);
         return 1;
     }
@@ -113,7 +114,7 @@ public class StorageMainPanel {
 				tmpID = ordersFromOutside.get(i).id;
 		}
 		tmpID = String.valueOf(Integer.parseInt(tmpID) + 1);
-		ordersFromOutside.add(new ProductOrder(tmpID, pq, new Date(), from, "Magazyn"));
+		ordersFromOutside.add(new ProductOrder(tmpID, pq, new Timestamp(new Date().getTime()), from, "Magazyn"));
 		archive.sendToDB();
 		return true;
     }
