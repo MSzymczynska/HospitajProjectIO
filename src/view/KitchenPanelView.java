@@ -1,15 +1,13 @@
 package view;
 
-import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import projekt.NewRecipeForm;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class KitchenPanelView {
 
