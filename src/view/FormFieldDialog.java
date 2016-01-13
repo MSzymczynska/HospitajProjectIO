@@ -242,8 +242,8 @@ public class FormFieldDialog extends JDialog {
 												int x;
 												if(formField.isDelivered()) x=1;
 												else x=0;
-												System.out.println(onWhenOrdered.getText()+ " " + formField.getOrderedMedicineId() + " " +  formField.getPatientId() + formField.FormFieldId);
-												query1 = (PreparedStatement) con.prepareStatement("update form_field set on_when_ordered=\""+onWhenOrdered.getText()+"\", ordered_medicine_id="+formField.getOrderedMedicineId()+", patient_id="+formField.getPatientId()+", amount="+formField.getAmount()+", is_delivered="+x+", when_ordered_date=\""+whenOrdered.getText()+"\" where form_field_id="+formField.FormFieldId);
+												System.out.println(onWhenOrdered.getText()+ " " + formField.getOrderedMedicineId() + " " +  formField.getPatientId() + formField.ffId);
+												query1 = (PreparedStatement) con.prepareStatement("update form_field set on_when_ordered=\""+onWhenOrdered.getText()+"\", ordered_medicine_id="+formField.getOrderedMedicineId()+", patient_id="+formField.getPatientId()+", amount="+formField.getAmount()+", is_delivered="+x+", when_ordered_date=\""+whenOrdered.getText()+"\" where form_field_id="+formField.ffId);
 												query1.executeUpdate();											
 											} catch (SQLException e1) {
 												System.out.print(e1.getMessage());

@@ -68,7 +68,22 @@ public class HospitalPharmacy{
 		for(int i=0; i<this.medicineList.size(); i++){
 			if(this.medicineList.get(i).name==m.name)
 			{
+				PreparedStatement query,query2;
 				this.medicineList.get(i).quantity+=m.quantity;
+					try {
+						query = (PreparedStatement) con.prepareStatement("select p.product_id from pharmacy_medicines m, products p where p.product_id=m.product_id and title=\""+m.name+"\"");
+						ResultSet result=(ResultSet) query.executeQuery();
+						while(result.next()){
+							query2 = (PreparedStatement) con.prepareStatement("update pharmacy_medicines set quantity_in_pharmacy="+this.medicineList.get(i).quantity+" where product_id=" +Integer.parseInt(result.getString(1)));
+							query2.executeUpdate();	
+						}
+							
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					
+					
+				
 				x=true;
 				break;
 			}				

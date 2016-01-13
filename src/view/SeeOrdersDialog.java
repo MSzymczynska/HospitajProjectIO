@@ -61,7 +61,7 @@ public class SeeOrdersDialog extends JDialog {
 	    			while(result4.next())
 	    			{				
 	    					FormField form=new FormField();
-	    					form.FormFieldId=Integer.parseInt(result4.getString(1));
+	    					form.ffId=Integer.parseInt(result4.getString(1));
 	    					form.setOnWhenOrdered(result4.getString(2));
 	    					form.setOrderedMedicineId(Integer.parseInt(result4.getString(3)));
 	    					form.setPatientId(Integer.parseInt(result4.getString(4)));
@@ -93,7 +93,7 @@ public class SeeOrdersDialog extends JDialog {
 	    			while(result4.next())
 	    			{				
 	    					FormField form=new FormField();
-	    					form.FormFieldId=Integer.parseInt(result4.getString(1));
+	    					form.ffId=Integer.parseInt(result4.getString(1));
 	    					form.setOnWhenOrdered(result4.getString(2));
 	    					form.setOrderedMedicineId(Integer.parseInt(result4.getString(3)));
 	    					form.setPatientId(Integer.parseInt(result4.getString(4)));
