@@ -1,8 +1,10 @@
-package projekt;
+package view;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.AbstractListModel;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -11,6 +13,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import projekt.DatabaseConnectionKuchnia;
+import projekt.KitchenPanel;
+import projekt.ListsOperations;
+import projekt.MealFeature;
+import projekt.Product;
+import projekt.ProductListModel;
+import projekt.ProductQuantity;
+import projekt.Recipe;
+import javax.swing.JComboBox; 
 public class NewRecipeForm {
 
 	private JFrame frame;
@@ -19,7 +30,6 @@ public class NewRecipeForm {
 	private JLabel lblCalValue;
 	private JTextField textField;
 	private JLabel lblProducts;
-	private JTextField textField_1;
 	private JTextField textField_2;
 	Recipe recipe = new Recipe();
 	/**
@@ -125,10 +135,13 @@ public class NewRecipeForm {
 		lblDodajProdukt.setBounds(21, 302, 134, 14);
 		frame.getContentPane().add(lblDodajProdukt);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(191, 299, 144, 20);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(191, 299, 144, 20);	
+		ProductListModel cbm = new ProductListModel();
+		cbm.setProducts(new ListsOperations().productsToProductArray());
+		comboBox.setModel(cbm);
+		frame.getContentPane().add(comboBox);
 		
 		textField_2 = new JTextField();
 		textField_2.setBounds(349, 299, 53, 20);
@@ -150,7 +163,6 @@ public class NewRecipeForm {
 					recipe.setName(name);
 					recipe.setDescription(desc);
 					
-					// cechy 
 					
 					if(chckbxNewCheckBox.isSelected()) {
 						recipe.addMealFeature(new MealFeature("dla diabetyków"));
@@ -182,7 +194,7 @@ public class NewRecipeForm {
 			        	frame.dispose();
 				    }
 					
-					System.out.println(recipe.getName());
+					DatabaseConnectionKuchnia.uploadNewRecipe(recipe);
 				} catch(NumberFormatException nfe) {}
 				
 			}
@@ -205,11 +217,11 @@ public class NewRecipeForm {
 		btnDodaj_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Product p = new Product(textField_1.getText());
+				Product p = (Product) comboBox.getSelectedItem();
+				System.out.println(p);
 				try {
 					ProductQuantity pq = new ProductQuantity(p, new Integer(textField_2.getText()));
 					recipe.addProduct(pq);
-					textField_1.setText("");
 					textField_2.setText("");
 				} catch(NumberFormatException nfe) {}
 				
@@ -219,6 +231,7 @@ public class NewRecipeForm {
 		});
 		btnDodaj_1.setBounds(317, 330, 87, 23);
 		frame.getContentPane().add(btnDodaj_1);
+		
+
 	}
-	
 	}

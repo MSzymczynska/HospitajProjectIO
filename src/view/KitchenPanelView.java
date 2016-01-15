@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import projekt.NewRecipeForm;
+import projekt.DatabaseConnectionKuchnia;
 
 public class KitchenPanelView {
 

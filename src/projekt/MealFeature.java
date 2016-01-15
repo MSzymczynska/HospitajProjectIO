@@ -10,7 +10,20 @@ public class MealFeature {
     	this.name = name;
     }
 
-    public String getName() {
+    public MealFeature() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getName() {
         return name;
+    }
+    
+    public static int getIdByName(String s) {
+    	if(s.contains("dla diabetyków")) return 1;
+    	if(s.contains("bez glutenu")) return 2;
+    	if(s.contains("dla dzieci")) return 3;
+    	if(s.contains("dla sercowców")) return 4;
+    	if(s.contains("dla ciê¿arnych")) return 5;
+    	return 0;
     }
 }

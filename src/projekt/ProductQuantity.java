@@ -41,4 +41,5 @@ public class ProductQuantity {
     public String toString() {
     	return this.product.toString() + " [" + this.quantity + "]\n";
     }
+    
 }

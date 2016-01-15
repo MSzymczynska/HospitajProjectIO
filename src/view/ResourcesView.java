@@ -50,7 +50,7 @@ public class ResourcesView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Zasoby kuchni");
 		frame.setBounds(100, 100, 450, 327);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

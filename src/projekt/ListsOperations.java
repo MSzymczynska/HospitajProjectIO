@@ -7,7 +7,7 @@ import java.util.Calendar;
 
 public class ListsOperations {
 	
-	public List<ProductQuantity> eraseMedicine(List<ProductQuantity> products) {
+	public static List<ProductQuantity> eraseMedicine(List<ProductQuantity> products) {
 		
 		for(int i=0; i<products.size(); i++) {
 			Product p = products.get(i).getProduct();
@@ -59,6 +59,44 @@ public class ListsOperations {
 		}
 		
 		return returned;
+	}
+	
+	public static Product[] productsToProductArray() {
+		List<ProductQuantity> products = DatabaseConnectionKuchnia.getProductQuantites();
+		products = eraseMedicine(products);
+		List<Product> l = new ArrayList();
+		for(int i=0; i<products.size(); i++) {
+			l.add(products.get(i).getProduct());
+		}
+		return l.toArray(new Product[l.size()]);
+	}
+	
+	public static int getProductIdByName(String s) {
+    	List<Product> p = DatabaseConnectionKuchnia.getProducts();
+    	for(int i=0; i<p.size(); i++) {
+    		if(p.get(i).getName().contains(s)) {
+    			return p.get(i).getId();
+    		}
+    	}
+    	return 0;
+    }
+	
+	public static String generateMealId() {
+		List<Recipe> recipes = DatabaseConnectionKuchnia.getRecipes();
+		String s = recipes.get(recipes.size()-1).getDescription();
+		System.out.println("ost id: " + s);
+		String sub = s.substring(s.length()-2, s.length());
+		System.out.println("sub: " + sub);
+		Integer i = Integer.parseInt(sub) +1;
+		StringBuilder sb = new StringBuilder();
+		sb.append("MEA");
+		int len = i.toString().length() + 3;
+		for(int j=len; j<8; j++) {
+			sb.append("0");
+		}
+		sb.append(i.toString());
+		
+		return sb.toString();
 	}
 
 }
