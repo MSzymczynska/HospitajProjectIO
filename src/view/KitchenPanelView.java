@@ -6,6 +6,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import com.mysql.jdbc.Connection;
+
+import projekt.DatabaseConnectionKuchnia;
 import projekt.NewRecipeForm;
 
 import java.awt.event.MouseAdapter;
