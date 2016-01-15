@@ -78,7 +78,6 @@ public class ResourcesView {
 				Object rowData[][] = null;
 				TableModel model = new DefaultTableModel(rowData, columnNames);
 				
-				new DatabaseConnectionKuchnia();
 				// Uzupelniam tabele danymi
 				List<Product> products = DatabaseConnectionKuchnia.getProducts();
 				products = new ListsOperations().eraseMedicine(products);
@@ -88,8 +87,7 @@ public class ResourcesView {
 					((DefaultTableModel)model).addRow(nextRow);
 				}
 											
-				table.setModel(model);
-				
+				table.setModel(model);		
 				frame.repaint();
 			}
 		});
@@ -97,6 +95,28 @@ public class ResourcesView {
 		JButton btnPokaZKrtk = new JButton("Poka\u017C z kr\u00F3tk\u0105 dat\u0105");
 		btnPokaZKrtk.setBounds(234, 165, 190, 25);
 		frame.getContentPane().add(btnPokaZKrtk);
+		btnPokaZKrtk.addMouseListener(new MouseAdapter() {
+			@Override 
+			public void mouseClicked(MouseEvent arg0) {
+				List<Product> products = DatabaseConnectionKuchnia.getProducts();
+				// dziala tylko jak przefiltruje sie dwa razy 
+				products = new ListsOperations().getByDate(products);
+				products = new ListsOperations().getByDate(products);
+				
+				Object columnNames[] = {"ID", "Nazwa", "Producent", "Data wa¿noœci"};
+				Object rowData[][] = null;
+				TableModel model = new DefaultTableModel(rowData, columnNames);
+				for(int i=0; i<products.size(); i++) {
+					Object nextRow[] = {products.get(i).getId(), products.get(i).getName(),
+							products.get(i).getProducer(), products.get(i).getExpirationDate().toString()};		
+					((DefaultTableModel)model).addRow(nextRow);
+				}
+											
+				table.setModel(model);		
+				frame.repaint();
+			}
+		}); 
+
 		
 		JButton btnWyjd = new JButton("Wyjd\u017A");
 		btnWyjd.addMouseListener(new MouseAdapter() {

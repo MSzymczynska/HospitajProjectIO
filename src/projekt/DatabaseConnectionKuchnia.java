@@ -27,7 +27,6 @@ public class DatabaseConnectionKuchnia {
 
 		try {
 			dbConnection = (Connection) DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASS);
-			System.out.println("Zaczynam ³¹czyæ");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

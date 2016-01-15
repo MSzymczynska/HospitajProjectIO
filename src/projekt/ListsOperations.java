@@ -1,6 +1,8 @@
 package projekt;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Calendar;
 
 public class ListsOperations {
 	
@@ -22,6 +24,23 @@ public class ListsOperations {
 		return products;
 	}
 	
-	
+	public List<Product> getByDate(List<Product> products) {
+		List<Product> temp = products;
+		
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.DATE, 14); 
+		date = cal.getTime();
+		
+		for(int i=0; i<temp.size(); i++) {
+			Product p = temp.get(i);
+			if(p.getExpirationDate().compareTo(date) > 0) {
+				temp.remove(p);
+				i = 0;
+			}
+		}
+		return temp;
+	}
 
 }
