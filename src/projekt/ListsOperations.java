@@ -2,11 +2,12 @@ package projekt;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ListsOperations {
 	
-	public static List<ProductQuantity> eraseMedicine(List<ProductQuantity> products) {
+	public List<ProductQuantity> eraseMedicine(List<ProductQuantity> products) {
 		
 		for(int i=0; i<products.size(); i++) {
 			Product p = products.get(i).getProduct();
@@ -26,7 +27,7 @@ public class ListsOperations {
 	}
 	
 	public List<ProductQuantity> getByDate(List<ProductQuantity> products) {
-		List<ProductQuantity> temp = products;
+		List<ProductQuantity> returned = products;
 		
 		Date date = new Date();
 		Calendar cal = Calendar.getInstance();
@@ -34,14 +35,30 @@ public class ListsOperations {
 		cal.add(Calendar.DATE, 14); 
 		date = cal.getTime();
 		
-		for(int i=0; i<temp.size(); i++) {
-			Product p = temp.get(i).getProduct();
+		for(int i=0; i<returned.size(); i++) {
+			Product p = returned.get(i).getProduct();
 			if(p.getExpirationDate().compareTo(date) > 0) {
-				temp.remove(temp.get(i));
+				returned.remove(returned.get(i));
 				i = 0;
 			}
 		}
-		return temp;
+		return returned;
+	}
+	
+	public List<ProductQuantity> getSearched(String searched) {
+		List<ProductQuantity> products = DatabaseConnectionKuchnia.getProductQuantites();
+		products = eraseMedicine(products);
+		List<ProductQuantity> returned = new ArrayList<ProductQuantity>();
+		
+		for(int i=0; i<products.size(); i++) {
+			ProductQuantity pq = products.get(i);
+			if(pq.getProduct().getName().toLowerCase().contains(searched) || 
+					pq.getProduct().getProducer().contains(searched)) {
+				returned.add(pq);
+			}
+		}
+		
+		return returned;
 	}
 
 }

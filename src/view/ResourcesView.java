@@ -142,6 +142,23 @@ public class ResourcesView {
 		JButton btnNewButton = new JButton("Szukaj");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String s = textField.getText().toLowerCase();
+				
+				List<ProductQuantity> quantities = new ListsOperations().getSearched(s);
+				Object columnNames[] = {"ID", "Nazwa", "Producent", "Data wa¿noœci", "Iloœæ"};
+				Object rowData[][] = null;
+				TableModel model = new DefaultTableModel(rowData, columnNames);
+				for(int i=0; i<quantities.size(); i++) {
+					Product p = quantities.get(i).getProduct();
+					Object nextRow[] = {p.getId(), p.getName(),
+							p.getProducer(), p.getExpirationDate().toString(),
+							quantities.get(i).getQuantity()};		
+					((DefaultTableModel)model).addRow(nextRow);
+				}
+											
+				table.setModel(model);		
+				frame.repaint();
+				
 			}
 		});
 		btnNewButton.setBounds(335, 201, 89, 23);
