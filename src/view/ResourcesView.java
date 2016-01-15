@@ -14,6 +14,7 @@ import javax.swing.table.TableModel;
 
 import projekt.DatabaseConnectionKuchnia;
 import projekt.Product;
+import projekt.ListsOperations;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -56,7 +57,7 @@ public class ResourcesView {
 		table = new JTable();
 		table.setBounds(10, 11, 414, 143);
 		JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		scrollPane.setBounds(10, 11, 414, 143);	
 		frame.getContentPane().add(scrollPane);
 				
@@ -74,19 +75,19 @@ public class ResourcesView {
 			@Override 
 			public void mouseClicked(MouseEvent arg0) {
 				Object columnNames[] = {"ID", "Nazwa", "Producent", "Data wa¿noœci"};
-				Object rowData[][] = { {"ID", "Nazwa", "Producent", "Data wa¿noœci"} };
+				Object rowData[][] = null;
 				TableModel model = new DefaultTableModel(rowData, columnNames);
 				
 				new DatabaseConnectionKuchnia();
 				// Uzupelniam tabele danymi
 				List<Product> products = DatabaseConnectionKuchnia.getProducts();
+				products = new ListsOperations().eraseMedicine(products);
 				for(int i=0; i<products.size(); i++) {
 					Object nextRow[] = {products.get(i).getId(), products.get(i).getName(),
 							products.get(i).getProducer(), products.get(i).getExpirationDate().toString()};		
 					((DefaultTableModel)model).addRow(nextRow);
 				}
-				
-							
+											
 				table.setModel(model);
 				
 				frame.repaint();

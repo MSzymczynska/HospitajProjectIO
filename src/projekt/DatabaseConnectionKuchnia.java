@@ -57,16 +57,14 @@ public class DatabaseConnectionKuchnia {
 			    Date expirationDate = result.getDate("expiration_date");
 			    
 			    // prosze bez komentarza ;P
-			    if(!producer.equals("Ingridient") || !name.equals("Ibuprom")
-			    		|| !name.equals("Apap") || !name.equals("Herbapect") 
-			    		|| !name.equals("Fenistil") || !name.equals("Altacet")) {
-			    	Product p = new Product();
-				    p.setId(id);
-				    p.setName(name);
-				    p.setProducer(producer);
-				    p.setExpirationDate(expirationDate);
-				    products.add(p);
-			    }		    
+
+		    	Product p = new Product();
+			    p.setId(id);
+			    p.setName(name);
+			    p.setProducer(producer);
+			    p.setExpirationDate(expirationDate);
+			    products.add(p);
+    
 			}
 		} catch(SQLException sqle) {
 			System.out.println("DB error: getProducts");
