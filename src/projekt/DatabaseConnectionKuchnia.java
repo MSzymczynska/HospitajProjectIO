@@ -145,6 +145,10 @@ public class DatabaseConnectionKuchnia {
 		return recipes;
 	}
 	
+	// wyciaganie skladnikow
+	
+	
+	
 	// -- dodawanie przepisu do bazy
 	
 	public static void uploadNewRecipe(Recipe r) {
