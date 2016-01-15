@@ -1,14 +1,22 @@
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
+import projekt.DatabaseConnectionKuchnia;
+import projekt.Product;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ResourcesView {
 
@@ -47,11 +55,43 @@ public class ResourcesView {
 		
 		table = new JTable();
 		table.setBounds(10, 11, 414, 143);
-		frame.getContentPane().add(table);
-		
+		JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		scrollPane.setBounds(10, 11, 414, 143);	
+		frame.getContentPane().add(scrollPane);
+				
 		JButton btnPokaWszystkie = new JButton("Poka\u017C wszystkie");
+		btnPokaWszystkie.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// sciagamy produkty z bazy i wrzucamy je do tabelki
+				
+			}
+		});
 		btnPokaWszystkie.setBounds(20, 165, 190, 25);
 		frame.getContentPane().add(btnPokaWszystkie);
+		btnPokaWszystkie.addMouseListener(new MouseAdapter() {
+			@Override 
+			public void mouseClicked(MouseEvent arg0) {
+				Object columnNames[] = {"ID", "Nazwa", "Producent", "Data wa¿noœci"};
+				Object rowData[][] = { {"ID", "Nazwa", "Producent", "Data wa¿noœci"} };
+				TableModel model = new DefaultTableModel(rowData, columnNames);
+				
+				new DatabaseConnectionKuchnia();
+				// Uzupelniam tabele danymi
+				List<Product> products = DatabaseConnectionKuchnia.getProducts();
+				for(int i=0; i<products.size(); i++) {
+					Object nextRow[] = {products.get(i).getId(), products.get(i).getName(),
+							products.get(i).getProducer(), products.get(i).getExpirationDate().toString()};		
+					((DefaultTableModel)model).addRow(nextRow);
+				}
+				
+							
+				table.setModel(model);
+				
+				frame.repaint();
+			}
+		});
 		
 		JButton btnPokaZKrtk = new JButton("Poka\u017C z kr\u00F3tk\u0105 dat\u0105");
 		btnPokaZKrtk.setBounds(234, 165, 190, 25);
@@ -80,4 +120,5 @@ public class ResourcesView {
 		btnNewButton.setBounds(335, 201, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 	}
+
 }
