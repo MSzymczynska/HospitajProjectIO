@@ -55,8 +55,6 @@ public class DatabaseConnectionKuchnia {
 			    String producer = result.getString("producent");
 			    Date expirationDate = result.getDate("expiration_date");
 			    
-			    // prosze bez komentarza ;P
-
 		    	Product p = new Product();
 			    p.setId(id);
 			    p.setName(name);
@@ -71,6 +69,46 @@ public class DatabaseConnectionKuchnia {
 		}
 		
 		return products;
+	}
+	
+	// wyciaganie product quantity ze storage
+	
+	public static List<ProductQuantity> getProductQuantites() {
+		List<ProductQuantity> productQuantities = new ArrayList<ProductQuantity>();
+		List<Product> products = new ArrayList<Product>();
+		products = getProducts();
+		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet result;
+		
+		String query = "SELECT * FROM storage";
+		
+		try {
+			connection = dbConnection();
+			statement = (Statement) connection.createStatement();
+			result = (ResultSet)statement.executeQuery(query);
+			while(result.next()) {
+				Integer id = result.getInt("product_id");
+			    int quantity = result.getInt("quantity");
+			    
+		    	ProductQuantity pq = new ProductQuantity();
+			    pq.setQuantity(quantity);
+			    for(int i=0; i<products.size(); i++) {
+			    	if(products.get(i).getId() == id) {
+			    		pq.setProduct(products.get(i));
+			    		break;
+			    	}
+			    }
+			    productQuantities.add(pq);
+    
+			}
+		} catch(SQLException sqle) {
+			System.out.println("DB error: getProducts");
+			sqle.printStackTrace();
+		}
+		
+		return productQuantities;
 	}
 
 }

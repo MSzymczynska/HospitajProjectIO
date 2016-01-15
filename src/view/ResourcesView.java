@@ -15,6 +15,7 @@ import javax.swing.table.TableModel;
 import projekt.DatabaseConnectionKuchnia;
 import projekt.Product;
 import projekt.ListsOperations;
+import projekt.ProductQuantity;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -74,16 +75,18 @@ public class ResourcesView {
 		btnPokaWszystkie.addMouseListener(new MouseAdapter() {
 			@Override 
 			public void mouseClicked(MouseEvent arg0) {
-				Object columnNames[] = {"ID", "Nazwa", "Producent", "Data wa¿noœci"};
+				Object columnNames[] = {"ID", "Nazwa", "Producent", "Data wa¿noœci", "Iloœæ"};
 				Object rowData[][] = null;
 				TableModel model = new DefaultTableModel(rowData, columnNames);
 				
 				// Uzupelniam tabele danymi
-				List<Product> products = DatabaseConnectionKuchnia.getProducts();
-				products = new ListsOperations().eraseMedicine(products);
-				for(int i=0; i<products.size(); i++) {
-					Object nextRow[] = {products.get(i).getId(), products.get(i).getName(),
-							products.get(i).getProducer(), products.get(i).getExpirationDate().toString()};		
+				List<ProductQuantity> quantities = DatabaseConnectionKuchnia.getProductQuantites();
+				quantities = new ListsOperations().eraseMedicine(quantities);
+				for(int i=0; i<quantities.size(); i++) {
+					Product p = quantities.get(i).getProduct();
+					Object nextRow[] = {p.getId(), p.getName(),
+							p.getProducer(), p.getExpirationDate().toString(),
+							quantities.get(i).getQuantity()};		
 					((DefaultTableModel)model).addRow(nextRow);
 				}
 											
@@ -98,17 +101,20 @@ public class ResourcesView {
 		btnPokaZKrtk.addMouseListener(new MouseAdapter() {
 			@Override 
 			public void mouseClicked(MouseEvent arg0) {
-				List<Product> products = DatabaseConnectionKuchnia.getProducts();
+				List<ProductQuantity> quantities = DatabaseConnectionKuchnia.getProductQuantites();
 				// dziala tylko jak przefiltruje sie dwa razy 
-				products = new ListsOperations().getByDate(products);
-				products = new ListsOperations().getByDate(products);
+				quantities = new ListsOperations().eraseMedicine(quantities);
+				quantities = new ListsOperations().getByDate(quantities);
+				quantities = new ListsOperations().getByDate(quantities);
 				
-				Object columnNames[] = {"ID", "Nazwa", "Producent", "Data wa¿noœci"};
+				Object columnNames[] = {"ID", "Nazwa", "Producent", "Data wa¿noœci", "Iloœæ"};
 				Object rowData[][] = null;
 				TableModel model = new DefaultTableModel(rowData, columnNames);
-				for(int i=0; i<products.size(); i++) {
-					Object nextRow[] = {products.get(i).getId(), products.get(i).getName(),
-							products.get(i).getProducer(), products.get(i).getExpirationDate().toString()};		
+				for(int i=0; i<quantities.size(); i++) {
+					Product p = quantities.get(i).getProduct();
+					Object nextRow[] = {p.getId(), p.getName(),
+							p.getProducer(), p.getExpirationDate().toString(),
+							quantities.get(i).getQuantity()};		
 					((DefaultTableModel)model).addRow(nextRow);
 				}
 											
