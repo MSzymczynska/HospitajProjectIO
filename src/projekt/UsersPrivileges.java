@@ -6,22 +6,41 @@
 package projekt;
 
 import java.util.ArrayList;
+import java.sql.*;
 
-/**
- *
- * @author pbugara
- */
 public class UsersPrivileges {
     private ArrayList<Privileges> privileges_;
     
+    UsersPrivileges(int id)
+    {
+        privileges_ = new ArrayList<Privileges>();
+        try {
+            Connection conn = DbManager.getInstance().connection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT p.privileges_id, p.privilege_path FROM users_privileges AS up, privileges AS p WHERE up.privileges_id = p.privileges_id AND up.users_id = ?");
+            stmt.setInt(1, id);
+            ResultSet results = stmt.executeQuery();
+            
+            while (results.next())
+            {
+                Privileges p = new Privileges(results.getInt(1), results.getString(2));
+                privileges_.add(p);
+            }
+        } catch (SQLException e)
+        {
+            System.err.println("UsersPrivileges: " + e.getMessage());
+        }
+    }
+    
     public boolean can(String privilegePath)
     {
-        for(Privileges p : privileges_)
+        for (int i = 0; i < privileges_.size(); ++i)
         {
-            if(p.exists(privilegePath))
+            if (privileges_.get(i).path().compareTo(privilegePath) == 0)
+            {
                 return true;
-            
+            }
         }
+        
         return false;
     }
     
@@ -30,12 +49,12 @@ public class UsersPrivileges {
         return privileges_;
     }
     
-    public void add(int user, String privilege)
+    public static void add(int user, String privilege)
     {
         
     }
     
-    public void remove(int user, String privilegePath)
+    public static void remove(int user, String privilegePath)
     {
         
     }

@@ -5,42 +5,27 @@
  */
 package projekt;
 
-/**
- *
- * @author pbugara
- */
+import java.sql.*;
+
 public class Users {
+    private int id_;
+    private String username_;
     private UsersGroups groups_;
     private UsersPrivileges privileges_;
+    private boolean is_admin_;
     
-    public Users(String username)
+    public Users(int id, String username, boolean is_admin)
     {
-    
-    }
-    
-    public Users(int id)
-    {
+        id_ = id;
+        username_ = username;
+        is_admin_ = is_admin;
         
+        privileges_ = new UsersPrivileges(id_);
     }
     
     public String username()
     {
-        return "username";
-    }
-    
-    public void username(String name)
-    {
-        
-    }
-    
-    public void password(String pass)
-    {
-        
-    }
-    
-    public boolean checkPassowrd(String pass)
-    {
-        return true;
+        return username_;
     }
     
     public UsersGroups getGroups()

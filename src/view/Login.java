@@ -146,7 +146,8 @@ public class Login extends javax.swing.JFrame {
             }
         } catch (Exception e)
         {
-            System.err.println(e.getMessage());
+            System.err.println("LoginFrame: " + e.getMessage());
+            e.printStackTrace();
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
