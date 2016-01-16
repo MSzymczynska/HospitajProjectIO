@@ -26,4 +26,18 @@ public class MealFeature {
     	if(s.contains("dla ciê¿arnych")) return 5;
     	return 0;
     }
+    
+    public static MealFeature getById(int id) {
+    	if(id == 1) return new MealFeature("dla diabetyków");
+    	if(id == 2) return new MealFeature("bez glutenu");
+    	if(id == 3) return new MealFeature("dla dzieci");
+    	if(id == 4) return new MealFeature("dla sercowców");
+    	if(id == 5) return new MealFeature("dla ciê¿arnych");
+    	return new MealFeature("dla wszystkich");
+    }
+    
+    @Override 
+    public String toString() {
+    	return this.name;
+    }
 }

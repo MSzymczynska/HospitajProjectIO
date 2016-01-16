@@ -12,6 +12,6 @@ package projekt;
 public class DbConfig {
     public static final String server = "s1.kolodziej.it";
     public static final String username = "hospital";
-    public static final String password = "c@2ea(*1FsE10cd91F7h";
+    public static final String password = "";
     public static final String dbname = "Hospital";
 }
