@@ -8,8 +8,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import projekt.DatabaseConnectionKuchnia;
 import projekt.KitchenPanel;
 import projekt.Recipe;
 
@@ -49,7 +51,7 @@ public class RecipeListView {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		list = new JTextArea();
-		ArrayList<Recipe> recipes = KitchenPanel.getInstance().getRecipeList();
+		ArrayList<Recipe> recipes = DatabaseConnectionKuchnia.getRecipes();
 		StringBuilder sb = new StringBuilder();
 		for(int i=0; i<recipes.size(); i++) {		
 			sb.append(i+1);
@@ -57,11 +59,13 @@ public class RecipeListView {
 			sb.append(recipes.get(i).getName());
 			sb.append('\n');
 		}
+		
 		frame.getContentPane().setLayout(null);
 		list.setText(sb.toString());
 		
-		list.setBounds(10, 11, 202, 239);		
-		frame.getContentPane().add(list);
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setBounds(10, 11, 202, 239);	
+		frame.getContentPane().add(scrollPane);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setBounds(222, 71, 202, 20);

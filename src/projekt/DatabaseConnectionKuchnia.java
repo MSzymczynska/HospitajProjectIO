@@ -10,6 +10,8 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.Statement;
 
+import projekt.MealFeature;
+
 public class DatabaseConnectionKuchnia {
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String DB_CONNECTION = "jdbc:mysql://s1.kolodziej.it:3306/Hospital";
@@ -112,8 +114,8 @@ public class DatabaseConnectionKuchnia {
 	}
 	
 	// -- wyciaganie przepisow
-	public static List<Recipe> getRecipes() {
-		List<Recipe> recipes = new ArrayList<Recipe>();
+	public static ArrayList<Recipe> getRecipes() {
+		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		
 		Connection connection = null;
 		Statement statement = null;
@@ -137,7 +139,7 @@ public class DatabaseConnectionKuchnia {
 			    recipes.add(r);  
 			}
 		} catch(SQLException sqle) {
-			System.out.println("DB error: getProducts");
+			System.out.println("DB error: getRecipes");
 			sqle.printStackTrace();
 		}
 		
@@ -147,7 +149,58 @@ public class DatabaseConnectionKuchnia {
 	
 	// wyciaganie skladnikow
 	
+	public static ArrayList<Product> getIngredients(Recipe r) {
+		ArrayList<Product> ingredients = new ArrayList<Product>();
+		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet result;
+		
+		String query = "SELECT product_id FROM ingredients_lists where meal_id='" + r.getDescription() + "'";
+		
+		try {
+			connection = dbConnection();
+			statement = (Statement) connection.createStatement();
+			result = (ResultSet)statement.executeQuery(query);
+			while(result.next()) {
+				int product_id = result.getInt("product_id");
+				ingredients.add(ListsOperations.getProductById(product_id));
+			}
+		} catch(SQLException sqle) {
+			System.out.println("DB error: getRecipes");
+			sqle.printStackTrace();
+		}
+			
+		return ingredients;
+	}
 	
+	// -- wyciaganie cech posilku
+	
+	public static ArrayList<MealFeature> getMealFeatures(Recipe r) {
+		ArrayList<MealFeature> features = new ArrayList<MealFeature>();
+		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet result;
+		
+		String query = "SELECT feature_id FROM meal_features_bond where meal_id='" + r.getDescription() + "'";
+		
+		try {
+			connection = dbConnection();
+			statement = (Statement) connection.createStatement();
+			result = (ResultSet)statement.executeQuery(query);
+			while(result.next()) {
+				int feature_id = result.getInt("feature_id");
+				features.add(MealFeature.getById(feature_id));
+
+			}
+		} catch(SQLException sqle) {
+			System.out.println("DB error: getRecipes");
+			sqle.printStackTrace();
+		}
+		
+		return features;
+	}
 	
 	// -- dodawanie przepisu do bazy
 	
@@ -175,7 +228,7 @@ public class DatabaseConnectionKuchnia {
 		 for(int i=0; i<r.getMealFeatures().size(); i++) {
 			 int fid = new MealFeature().getIdByName(r.getMealFeatures().get(i).getName());
 			 
-			 query = "insert into meal_features_bond values ('" + mealId + "', " + fid + ")";
+			 query = "insert into meal_features_bond(meal_id, feature_id) values ('" + mealId + "', " + fid + ") from meal_features_bond";
 			 System.out.println(query);
 			 
 			 try {
@@ -190,7 +243,7 @@ public class DatabaseConnectionKuchnia {
 		 // dodawania powiazan posilek - produkt
 		 for(int i=0; i<r.getProducts().size(); i++) {
 			 int pid = new ListsOperations().getProductIdByName(r.getProducts().get(i).getProduct().getName());			 
-			 query = "insert into ingredients_lists values ('" + mealId + "', " + pid + ")"; 
+			 query = "insert into ingredients_lists(meal_id, product_id) values ('" + mealId + "', " + pid + ") from ingrediets_lists"; 
 			 System.out.println(query);
 			 
 			 try {

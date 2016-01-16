@@ -71,6 +71,7 @@ public class ListsOperations {
 		return l.toArray(new Product[l.size()]);
 	}
 	
+	
 	public static int getProductIdByName(String s) {
     	List<Product> p = DatabaseConnectionKuchnia.getProducts();
     	for(int i=0; i<p.size(); i++) {
@@ -81,6 +82,17 @@ public class ListsOperations {
     	return 0;
     }
 	
+	public static Product getProductById(int id) {
+		List<Product> p = DatabaseConnectionKuchnia.getProducts();
+    	for(int i=0; i<p.size(); i++) {
+    		if(p.get(i).getId() == id) {
+    			return p.get(i);
+    		}
+    	}
+    	return null;
+	}
+	
+		
 	public static String generateMealId() {
 		List<Recipe> recipes = DatabaseConnectionKuchnia.getRecipes();
 		String s = recipes.get(recipes.size()-1).getDescription();
@@ -98,5 +110,7 @@ public class ListsOperations {
 		
 		return sb.toString();
 	}
+	
+
 
 }
