@@ -61,6 +61,25 @@ public class FormFieldDialog extends JDialog {
 			}
 		});
 		int whoOrdered =101;
+		String doctorName=null;
+		//
+			
+				PreparedStatement query4;
+		
+			try {
+				query4 = (PreparedStatement) con.prepareStatement("select doctorsFirstName, doctorsLastName from doctors where idDoctor="+whoOrdered);
+				ResultSet result4=(ResultSet) query4.executeQuery();
+				while(result4.next()){
+					doctorName=result4.getString(1)+" \n"+result4.getString(2);
+				}
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			
+				
+				
+				
 		setBounds(100, 100, 500, 400);
 		setVisible(true);
 		hospitalPharmacyWindow.setVisible(false);
@@ -70,12 +89,12 @@ public class FormFieldDialog extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JLabel lblZamawiajcy = new JLabel("Zamawiaj\u0105cy");
-		lblZamawiajcy.setBounds(10, 11, 70, 14);
+		lblZamawiajcy.setBounds(10, 11, 80, 14);
 		contentPanel.add(lblZamawiajcy);
 		
 		//to mo¿e uzupe³niaæ siê automatycznie pobieraj¹c nazwisko zamawiaj¹cego, albo jego id. lepiej chyba nazwisko
-		JLabel whoOrderedL = new JLabel(Integer.toString(whoOrdered));
-		whoOrderedL.setBounds(10, 36, 46, 14);
+		JLabel whoOrderedL = new JLabel(doctorName);
+		whoOrderedL.setBounds(10, 36, 136, 14);
 		contentPanel.add(whoOrderedL);
 		
 		JLabel lblLek = new JLabel("Lek");
@@ -97,7 +116,7 @@ public class FormFieldDialog extends JDialog {
 		contentPanel.add(comboBoxMedicine);
 		
 		JLabel lblPacjent = new JLabel("Pacjent");
-		lblPacjent.setBounds(125, 11, 46, 14);
+		lblPacjent.setBounds(252, 10, 46, 14);
 		contentPanel.add(lblPacjent);
 		
 		String patients[];
@@ -130,7 +149,7 @@ public class FormFieldDialog extends JDialog {
 		
 		JComboBox comboBoxPatient = new JComboBox(patients);
 		if(!isNew) comboBoxPatient.setSelectedIndex(formField.getPatientId()-1);
-		comboBoxPatient.setBounds(125, 33, 161, 20);
+		comboBoxPatient.setBounds(248, 30, 161, 20);
 		contentPanel.add(comboBoxPatient);
 		
 		JLabel lblData = new JLabel("Data zam\u00F3wienia");
