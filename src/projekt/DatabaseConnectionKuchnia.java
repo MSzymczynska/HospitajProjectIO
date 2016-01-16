@@ -2,9 +2,12 @@ package projekt;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Calendar;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSet;
@@ -228,7 +231,7 @@ public class DatabaseConnectionKuchnia {
 		 for(int i=0; i<r.getMealFeatures().size(); i++) {
 			 int fid = new MealFeature().getIdByName(r.getMealFeatures().get(i).getName());
 			 
-			 query = "insert into meal_features_bond(meal_id, feature_id) values ('" + mealId + "', " + fid + ") from meal_features_bond";
+			 query = "insert into meal_features_bond(meal_id, feature_id) values ('" + mealId + "', " + fid + ")";
 			 System.out.println(query);
 			 
 			 try {
@@ -243,7 +246,7 @@ public class DatabaseConnectionKuchnia {
 		 // dodawania powiazan posilek - produkt
 		 for(int i=0; i<r.getProducts().size(); i++) {
 			 int pid = new ListsOperations().getProductIdByName(r.getProducts().get(i).getProduct().getName());			 
-			 query = "insert into ingredients_lists(meal_id, product_id) values ('" + mealId + "', " + pid + ") from ingrediets_lists"; 
+			 query = "insert into ingredients_lists(meal_id, product_id) values ('" + mealId + "', " + pid + ")"; 
 			 System.out.println(query);
 			 
 			 try {
@@ -255,5 +258,40 @@ public class DatabaseConnectionKuchnia {
 				}
 		 }
 	}
+	
+	// -- pobieranie dzisiejszego menu
+	
+	public static Menu getDailyMenu() {
+		Recipe bf[] = new Recipe[1];
+		Recipe lu[] = new Recipe[1];
+		Recipe di[] = new Recipe[1];
+		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet result;
+		
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = Calendar.getInstance().getTime();
+		String today = df.format(date);
+		
+		String query = "SELECT * FROM daily_menu where date='" + today + "'";
+		
+		try {
+			connection = dbConnection();
+			statement = (Statement) connection.createStatement();
+			result = (ResultSet)statement.executeQuery(query);
+			while(result.next()) {
+				int breakfast = result.getInt("breakfast");
+				int lunch = result.getInt("dinner");
+				int dinner = result.getInt("supper");
+			}
+		} catch(SQLException sqle) {
+			System.out.println("DB error: getRecipes");
+			sqle.printStackTrace();
+		}
+		
+		return new Menu(bf, lu, di);
+	}
+	
 
 }

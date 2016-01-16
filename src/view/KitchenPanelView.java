@@ -71,17 +71,12 @@ public class KitchenPanelView {
 		btnViewRecipe.setBounds(120, 120, 200, 50);
 		btnNewRecipe.setSize(200,50);
 		frame.getContentPane().add(btnViewRecipe);
-		
-		JLabel lblSiemankoWitajW = new JLabel("Siemanko witaj w mojej kuchni");
-		lblSiemankoWitajW.setBounds(120, 35, 200, 14);
-		frame.getContentPane().add(lblSiemankoWitajW);
-		
-		JButton btnNewOrder = new JButton("Z\u0142\u00F3\u017C zam\u00F3wienie");
+			
+		JButton btnNewOrder = new JButton("Dzisiejsze menu");
 		btnNewOrder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				NewOrderView nov = new NewOrderView();
-				nov.run();
+				// todo: wyswietlanie okienka
 			}
 		});
 		btnNewOrder.setBounds(120, 180, 200, 50);
