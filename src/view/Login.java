@@ -140,6 +140,8 @@ public class Login extends javax.swing.JFrame {
             {
                 System.out.println("Zalogowano!");
                 this.setVisible(false);
+                MainPanel mainWindow = new MainPanel();
+                
             } else
             {
                 errorLabel.setText("Logowanie nieudane!");
