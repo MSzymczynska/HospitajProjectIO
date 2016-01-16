@@ -136,7 +136,7 @@ public class DailyMenuView extends JFrame {
 		x = Math.abs(random.nextInt(size-1));
 		menu.setDinner(allMeals.get(x));
 		DatabaseConnectionKuchnia.insertDailyMenu(menu);
-		
+		fillMenu();
 	}
 	
 
