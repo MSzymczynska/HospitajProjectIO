@@ -348,7 +348,7 @@ public class DatabaseConnectionKuchnia {
 		Statement statement = null;
 		ResultSet result;
 		
-		String query = "insert into meals_on_tod values ('" + b + "', 1), ('" + l + "', 2), ('" + d + "', 3)";
+		String query = "insert into meals_on_tod(meal_id, tod) values ('" + b + "', 1), ('" + l + "', 2), ('" + d + "', 3)";
 		System.out.println(query);
 		int lastid = 0;
 		try {
@@ -364,11 +364,14 @@ public class DatabaseConnectionKuchnia {
 			e.printStackTrace();
 		}
 		
-		lastid = lastid-2;
 		try {
 			connection = dbConnection();
 			statement = (Statement) connection.createStatement();
-			query = "insert into daily_menu values (" + today + ", " + lastid + ", " + lastid+1 + ", " + lastid+2 + ")";		
+			int a = lastid-2;
+			int b1 = a+1;
+			int c = a+2;
+			query = "insert into daily_menu(date, breakfast, dinner, supper) values ('" + today + "', " + a + ", " + b1 + ", " + c + ")";		
+			System.out.println(query);
 			statement.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
