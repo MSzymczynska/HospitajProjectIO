@@ -27,7 +27,10 @@ public class Product {
         this.producer = producer;
         this.expirationDate = expDate;
     }
-    public String getProducer() {
+    public Product() {
+		// TODO Auto-generated constructor stub
+	}
+	public String getProducer() {
         return producer;
     }
 

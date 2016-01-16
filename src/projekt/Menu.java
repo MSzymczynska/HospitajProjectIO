@@ -5,6 +5,7 @@ public class Menu {
 	Recipe[] lunchMenu;
 	Recipe[] dinnerMenu;
 	
+
 	public Menu(int breakfast, int lunch, int dinner) {
         breakfastMenu = new Recipe[breakfast];
         lunchMenu = new Recipe[lunch];
@@ -12,8 +13,54 @@ public class Menu {
     }
 	
 		
-	public void displayMenu() {
-		// todo:
+	public Menu(Recipe[] bf, Recipe[] lu, Recipe[] di) {
+		this.breakfastMenu = bf;
+		this.lunchMenu = lu;
+		this.dinnerMenu = di;
 	}
 
+
+	public Menu() {
+		breakfastMenu = new Recipe[1];
+        lunchMenu = new Recipe[1];
+        dinnerMenu = new Recipe[1];
+	}
+
+
+	public String getBreakfast() {
+		return this.breakfastMenu[0].getName();
+	}
+	
+	public String getLunch() {
+		return this.lunchMenu[0].getName();
+	}
+	
+	public String getDinner() {
+		return this.dinnerMenu[0].getName();
+	}
+	
+	
+	public void setBreakfast(Recipe r) {
+		this.breakfastMenu[0] = r;
+	}
+	
+	public void setLunch(Recipe r) {
+		this.lunchMenu[0] = r;
+	}
+	
+	public void setDinner(Recipe r) {
+		this.dinnerMenu[0] = r;
+	}
+	
+	public Recipe[] getBreakfastMenu() {
+		return this.breakfastMenu;
+	}
+	
+	public Recipe[] getLunchMenu() {
+		return this.lunchMenu;
+	}
+	
+	public Recipe[] getDinnerMenu() {
+		return this.dinnerMenu;
+	}
 }

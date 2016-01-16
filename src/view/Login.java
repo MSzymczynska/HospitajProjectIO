@@ -8,6 +8,9 @@ package view;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import projekt.Accounts;
+import projekt.DbManager;
+
 /**
  *
  * @author pbugara
@@ -129,25 +132,22 @@ public class Login extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String login = loginText.getText();
         String pass = passText.getText();
-        this.setVisible(false);
-        //new HospitalMainWindow();
-        // wyszukaj w bazie danych!!
-        
-       //// if(login.length() == 0 || pass.length() == 0)
-      ///  {
-            
-      //  }
-        
-       /* Accounts accounts = Accounts.getInstance();
-        int authResult = accounts.authenticate(login, pass);
-        if(authResult == 0)
+       
+        try {
+            Accounts accounts = Accounts.getInstance(DbManager.getInstance().connection());
+            int code = accounts.authenticate(login, pass);
+            if(code == 0)
+            {
+                System.out.println("Zalogowano!");
+                this.setVisible(false);
+            } else
+            {
+                errorLabel.setText("Logowanie nieudane!");
+            }
+        } catch (Exception e)
         {
-            // login
+            System.err.println(e.getMessage());
         }
-        else
-        {
-            errorLabel.setText("Logowanie nieudane");
-        }*/
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
