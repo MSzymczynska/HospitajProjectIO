@@ -11,6 +11,7 @@ import java.sql.*;
 public class Accounts {
     private final Connection database;
     private static Accounts instance_ = null;
+    private Users auth_user_ = null;
     
     private Accounts(Connection db)
     {
@@ -41,7 +42,7 @@ public class Accounts {
     public int authenticate(String username, String password)
     {
         try {
-            PreparedStatement stmt = database.prepareStatement("SELECT username FROM users WHERE username = ? AND password = PASSWORD(?) LIMIT 1");
+            PreparedStatement stmt = database.prepareStatement("SELECT users_id, username, admin FROM users WHERE username = ? AND password = PASSWORD(?) LIMIT 1");
             stmt.setString(1, username);
             stmt.setString(2, password);
             ResultSet results = stmt.executeQuery();
@@ -51,35 +52,45 @@ public class Accounts {
                 return 1; // brak rekordow
             } else
             {
-                if (results.getString(1).compareTo(username) == 0 && !results.next())
+                if (results.getString(2).compareTo(username) == 0)
                 {
+                    auth_user_ = new Users(results.getInt(1), results.getString(2), results.getBoolean(3));
                     return 0; // brak bledow
-                } else
-                {
-                    return 2; // pobrano za duzo rekordow!
                 }
             }
             
         } catch (SQLException e)
         {
-            System.err.println(e.getMessage());
-            return 3; // blad sql
+            System.err.println("Accounts: " + e.getMessage());
+            return 2; // blad sql
         }
         
+        return 3;
     }
     
     public boolean can(String privilegePath)
     {
-        return true;
+        Users auth_user = getAuthenticatedUser();
+        if (auth_user == null)
+        {
+            return false;
+        }
+        
+        if (isAdmin())
+        {
+            return true;
+        }
+        
+        return false;
     }
     
     public boolean isAdmin()
     {
-     return true;   
+        return false;
     }
     
     public Users getAuthenticatedUser()
     {
-        return null;
+        return auth_user_;
     }
 }

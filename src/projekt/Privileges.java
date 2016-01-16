@@ -5,25 +5,18 @@
  */
 package projekt;
 
-/**
- *
- * @author pbugara
- */
 public class Privileges {
     private int id_;
+    private String path_;
     
-    public boolean exists(String privilegePath)
+    Privileges(int id, String path)
     {
-        return true;
+        id_ = id;
+        path_ = path;
     }
     
-    public void add(String privilegePath)
+    public String path()
     {
-        
-    }
-    
-    public int id()
-    {
-        return 1;
+        return path_;
     }
 }
