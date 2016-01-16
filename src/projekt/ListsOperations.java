@@ -111,6 +111,15 @@ public class ListsOperations {
 		return sb.toString();
 	}
 	
+	public static Recipe getRecipeById(ArrayList<Recipe> recipes, String id) {
+		for(int i=0; i<recipes.size(); i++) {
+			if(recipes.get(i).getDescription().equals(id)) {
+				return recipes.get(i);
+			}
+		}
+		return null;
+	}
+	
 
 
 }

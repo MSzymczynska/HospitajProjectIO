@@ -2,39 +2,53 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Label;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import projekt.DatabaseConnectionKuchnia;
+import projekt.Menu;
+import projekt.Product;
+import projekt.ProductQuantity;
+import projekt.Recipe;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class DailyMenuView extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private Label textField;
+	private Label textField_1;
+	private Label textField_2;
+	private Label textField_3;
+	private ArrayList<Recipe> allMeals;
+	Menu menu;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DailyMenuView frame = new DailyMenuView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+	public void run() {
+		allMeals = DatabaseConnectionKuchnia.getRecipes();
+		try {
+			DailyMenuView frame = new DailyMenuView();
+			frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+
 
 	/**
 	 * Create the frame.
@@ -49,47 +63,66 @@ public class DailyMenuView extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblniadanie = new JLabel("\u015Aniadanie");
-		lblniadanie.setBounds(58, 65, 46, 14);
+		lblniadanie.setBounds(10, 65, 94, 14);
 		contentPane.add(lblniadanie);
 		
 		JLabel lblObiad = new JLabel("Obiad");
-		lblObiad.setBounds(58, 104, 46, 14);
+		lblObiad.setBounds(10, 104, 94, 14);
 		contentPane.add(lblObiad);
 		
 		JLabel lblKolacja = new JLabel("Kolacja");
-		lblKolacja.setBounds(58, 141, 46, 14);
+		lblKolacja.setBounds(10, 141, 94, 14);
 		contentPane.add(lblKolacja);
 		
-		textField = new JTextField();
+		textField = new Label();
 		textField.setBounds(158, 62, 203, 20);
 		contentPane.add(textField);
-		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
+		textField_1 = new Label();
 		textField_1.setBounds(158, 101, 203, 20);
 		contentPane.add(textField_1);
-		textField_1.setColumns(10);
 		
-		textField_2 = new JTextField();
+		textField_2 = new Label();
 		textField_2.setBounds(158, 138, 203, 20);
 		contentPane.add(textField_2);
-		textField_2.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Generuj");
+		JButton btnNewButton = new JButton("Uzupe\u0142nij menu");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				fillMenu();
 			}
 		});
 		btnNewButton.setBounds(58, 227, 303, 23);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblData = new JLabel("Data");
-		lblData.setBounds(58, 29, 46, 14);
+		lblData.setBounds(10, 29, 94, 14);
 		contentPane.add(lblData);
 		
-		textField_3 = new JTextField();
+		textField_3 = new Label();
 		textField_3.setBounds(158, 26, 203, 20);
 		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+	}
+	
+	public void fillMenu() {
+		menu = DatabaseConnectionKuchnia.getDailyMenu();
+		if(menu == null) {
+			generateMenu();
+		}
+		else {
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = Calendar.getInstance().getTime();
+			String today = df.format(date);
+			textField_3.setText(today);
+			System.out.println(menu.getBreakfast());
+			textField.setText(menu.getBreakfast());
+			textField_1.setText(menu.getLunch());
+			textField_2.setText(menu.getDinner());
+			contentPane.repaint();
+		}
+	}
+	
+	public void generateMenu() {
+		
 	}
 }

@@ -20,10 +20,28 @@ public class Menu {
 	}
 
 
-	public void displayMenu() {
-		// todo:
+	public String getBreakfast() {
+		return this.breakfastMenu[0].getName();
+	}
+	
+	public String getLunch() {
+		return this.lunchMenu[0].getName();
+	}
+	
+	public String getDinner() {
+		return this.dinnerMenu[0].getName();
 	}
 	
 	
-
+	public void setBreakfast(Recipe r) {
+		this.breakfastMenu[0] = r;
+	}
+	
+	public void setLunch(Recipe r) {
+		this.lunchMenu[0] = r;
+	}
+	
+	public void setDinner(Recipe r) {
+		this.dinnerMenu[0] = r;
+	}
 }

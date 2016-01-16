@@ -76,7 +76,8 @@ public class KitchenPanelView {
 		btnNewOrder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// todo: wyswietlanie okienka
+				DailyMenuView dmv = new DailyMenuView();
+				dmv.run();
 			}
 		});
 		btnNewOrder.setBounds(120, 180, 200, 50);

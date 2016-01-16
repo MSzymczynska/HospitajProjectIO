@@ -20,6 +20,8 @@ public class DatabaseConnectionKuchnia {
 	private static final String DB_CONNECTION = "jdbc:mysql://s1.kolodziej.it:3306/Hospital";
 	private static final String DB_USER = "hospital";
 	private static final String DB_PASS = "c@2ea(*1FsE10cd91F7h";
+	static ArrayList<Product> products = null;
+	static ArrayList<Recipe> recipes = null;
 
 	public static Connection dbConnection() {
 		Connection dbConnection = null;
@@ -41,8 +43,8 @@ public class DatabaseConnectionKuchnia {
 	
 	// wyciaganie produktow z bazy danych
 	
-	public static List<Product> getProducts() {
-		List<Product> products = new ArrayList<Product>();
+	public static ArrayList<Product> getProducts() {
+		ArrayList<Product> products = new ArrayList<Product>();
 		
 		Connection connection = null;
 		Statement statement = null;
@@ -78,9 +80,8 @@ public class DatabaseConnectionKuchnia {
 	
 	// wyciaganie product quantity ze storage
 	
-	public static List<ProductQuantity> getProductQuantites() {
-		List<ProductQuantity> productQuantities = new ArrayList<ProductQuantity>();
-		List<Product> products = new ArrayList<Product>();
+	public static ArrayList<ProductQuantity> getProductQuantites() {
+		ArrayList<ProductQuantity> productQuantities = new ArrayList<ProductQuantity>();
 		products = getProducts();
 		
 		Connection connection = null;
@@ -275,21 +276,62 @@ public class DatabaseConnectionKuchnia {
 		String today = df.format(date);
 		
 		String query = "SELECT * FROM daily_menu where date='" + today + "'";
-		
+	
+		// -- sciaganie id posilkow z daily_menu
+		int breakfast = 0;
+		int lunch = 0;
+		int dinner = 0;
 		try {
 			connection = dbConnection();
 			statement = (Statement) connection.createStatement();
 			result = (ResultSet)statement.executeQuery(query);
+			if (!result.isBeforeFirst() ) {    
+				 return null;
+				} 
 			while(result.next()) {
-				int breakfast = result.getInt("breakfast");
-				int lunch = result.getInt("dinner");
-				int dinner = result.getInt("supper");
+				breakfast = result.getInt("breakfast");
+				lunch = result.getInt("dinner");
+				dinner = result.getInt("supper");
 			}
 		} catch(SQLException sqle) {
-			System.out.println("DB error: getRecipes");
+			System.out.println("DB error: getDailyMenu");
 			sqle.printStackTrace();
 		}
 		
+		String queryB = "SELECT * FROM meals_on_tod where id=" + breakfast;
+		String queryL = "SELECT * FROM meals_on_tod where id=" + lunch;
+		String queryD = "SELECT * FROM meals_on_tod where id=" + dinner;
+		String idB = null;
+		String idL = null;
+		String idD = null;
+		try {
+			connection = dbConnection();
+			statement = (Statement) connection.createStatement();
+			result = (ResultSet)statement.executeQuery(queryB);
+			while(result.next()) {
+				idB = result.getString("meal_id");
+			}
+			
+			result = (ResultSet)statement.executeQuery(queryL);
+			while(result.next()) {
+				idL = result.getString("meal_id");
+			}
+			
+			result = (ResultSet)statement.executeQuery(queryD);
+			while(result.next()) {
+				idD = result.getString("meal_id");
+			}
+			
+		} catch(SQLException sqle) {
+			System.out.println("DB error: getDailyMenu");
+			sqle.printStackTrace();
+		}
+		
+		// -- wyciaganie przepisow na podstawie ich id
+		recipes = getRecipes();
+		bf[0] = ListsOperations.getRecipeById(recipes, idB);
+		lu[0] = ListsOperations.getRecipeById(recipes, idL);
+		di[0] = ListsOperations.getRecipeById(recipes, idD);
 		return new Menu(bf, lu, di);
 	}
 	
