@@ -20,6 +20,13 @@ public class Menu {
 	}
 
 
+	public Menu() {
+		breakfastMenu = new Recipe[1];
+        lunchMenu = new Recipe[1];
+        dinnerMenu = new Recipe[1];
+	}
+
+
 	public String getBreakfast() {
 		return this.breakfastMenu[0].getName();
 	}
@@ -43,5 +50,17 @@ public class Menu {
 	
 	public void setDinner(Recipe r) {
 		this.dinnerMenu[0] = r;
+	}
+	
+	public Recipe[] getBreakfastMenu() {
+		return this.breakfastMenu;
+	}
+	
+	public Recipe[] getLunchMenu() {
+		return this.lunchMenu;
+	}
+	
+	public Recipe[] getDinnerMenu() {
+		return this.dinnerMenu;
 	}
 }

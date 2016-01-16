@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import projekt.DatabaseConnectionKuchnia;
+import projekt.ListsOperations;
 import projekt.Menu;
 import projekt.Product;
 import projekt.ProductQuantity;
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.awt.event.ActionEvent;
 
 public class DailyMenuView extends JFrame {
@@ -123,6 +125,19 @@ public class DailyMenuView extends JFrame {
 	}
 	
 	public void generateMenu() {
+		allMeals = DatabaseConnectionKuchnia.getRecipes();
+		menu = new Menu();
+		int size = allMeals.size();
+		Random random = new Random();
+		int x = Math.abs(random.nextInt(size-1));
+		menu.setBreakfast(allMeals.get(x));
+		x = Math.abs(random.nextInt(size-1));
+		menu.setLunch(allMeals.get(x));
+		x = Math.abs(random.nextInt(size-1));
+		menu.setDinner(allMeals.get(x));
+		DatabaseConnectionKuchnia.insertDailyMenu(menu);
 		
 	}
+	
+
 }

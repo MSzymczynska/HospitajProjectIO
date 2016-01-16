@@ -335,5 +335,46 @@ public class DatabaseConnectionKuchnia {
 		return new Menu(bf, lu, di);
 	}
 	
+	public static void insertDailyMenu(Menu m) {
+		String b = m.getBreakfastMenu()[0].getRecipe().getDescription();
+		String l = m.getLunchMenu()[0].getRecipe().getDescription();
+		String d = m.getDinnerMenu()[0].getRecipe().getDescription();
+		
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = Calendar.getInstance().getTime();
+		String today = df.format(date);
+		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet result;
+		
+		String query = "insert into meals_on_tod values ('" + b + "', 1), ('" + l + "', 2), ('" + d + "', 3)";
+		System.out.println(query);
+		int lastid = 0;
+		try {
+			connection = dbConnection();
+			statement = (Statement) connection.createStatement();
+			statement.executeUpdate(query);
+			result = (ResultSet) statement.executeQuery("select last_insert_id() as last_id from meals_on_tod");
+			while(result.next()) {
+				lastid = result.getInt("last_id");
+			}		
+			System.out.println(lastid);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		lastid = lastid-2;
+		try {
+			connection = dbConnection();
+			statement = (Statement) connection.createStatement();
+			query = "insert into daily_menu values (" + today + ", " + lastid + ", " + lastid+1 + ", " + lastid+2 + ")";		
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 
 }
