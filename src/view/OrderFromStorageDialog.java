@@ -40,12 +40,12 @@ public class OrderFromStorageDialog extends JDialog {
 		
 		comboBox = new JComboBox();
 		
-		String przyk³adoweNazwyLekow[]= new String[hospitalPharmacy.medicineList.size()];
+		String przykladoweNazwyLekow[]= new String[hospitalPharmacy.medicineList.size()];
 		for(int i=0; i<hospitalPharmacy.medicineList.size();i++)
 		{
-			przyk³adoweNazwyLekow[i]=hospitalPharmacy.medicineList.get(i).name;
+			przykladoweNazwyLekow[i]=hospitalPharmacy.medicineList.get(i).name;
 		}
-		comboBox = new JComboBox(przyk³adoweNazwyLekow);
+		comboBox = new JComboBox(przykladoweNazwyLekow);
 		comboBox.setBounds(10, 36, 414, 20);
 		contentPanel.add(comboBox);
 		
@@ -81,14 +81,14 @@ public class OrderFromStorageDialog extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("WyjdŸ");
+				JButton cancelButton = new JButton("Wyjdï¿½");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						hospitalPharmacyWindow.setVisible(true);
 						dispose();
 					}
 				});
-				cancelButton.setActionCommand("WyjdŸ");
+				cancelButton.setActionCommand("Wyjdï¿½");
 				buttonPane.add(cancelButton);
 			}
 		}
