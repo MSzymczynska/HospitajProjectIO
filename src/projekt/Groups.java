@@ -20,19 +20,15 @@ public class Groups {
     private int id_;
     private String name_;
     
-    public Groups(String name)
-    {
-        
-    }
-    
-    public Groups(int id)
-    {
-        
-    }
     
     public Groups(int id, String name) {
-        this.id_ = id;
-        this.name_ = name;
+        id_ = id;
+        name_ = name;
+    }
+    
+    public int id()
+    {
+        return id_;
     }
     
     public String getName()
@@ -48,6 +44,11 @@ public class Groups {
     public UsersGroups getUsers()
     {
         return users_;
+    }
+    
+    public boolean can(String privilegePath)
+    {
+        return groups_.can(privilegePath);
     }
     
     public void addPrivilege(String privilegePath)
