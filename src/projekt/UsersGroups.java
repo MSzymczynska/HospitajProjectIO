@@ -5,6 +5,10 @@
  */
 package projekt;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -12,24 +16,29 @@ import java.util.ArrayList;
  * @author pbugara
  */
 public class UsersGroups {
+    private ArrayList<Groups> groups_;
     
-    public ArrayList<Users> getUsers(int group)
+    public UsersGroups(int id)
     {
-        return null;
+        groups_ = new ArrayList<Groups>();
+        try {
+            Connection conn = DbManager.getInstance().connection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT g.groups_id, g.name FROM users_groups AS up, groups AS g WHERE up.groups_id = g.groups_id AND up.users_id = ?");
+            stmt.setInt(1, id);
+            ResultSet results = stmt.executeQuery();
+            
+            while (results.next())
+            {
+                Groups p = new Groups(results.getInt(1), results.getString(2));
+                groups_.add(p);
+            }
+        } catch (SQLException e)
+        {
+            System.err.println("UsersGroups: " + e.getMessage());
+        }
     }
     
-    public ArrayList<Users> getUsers(Groups group)
-    {
-    	return null;
-    }
-    
-    public ArrayList<Groups> getGroups(int user)
-    {
-    	return null;
-    }
-    
-    public ArrayList<Groups> getGroups(Users user)
-    {
-    	return null;
+    public ArrayList<Groups> getGroups() {
+        return groups_;
     }
 }

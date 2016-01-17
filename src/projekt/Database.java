@@ -26,7 +26,7 @@ public class Database {
 		try {
 			dbConnection = (Connection) DriverManager.getConnection(
 					DB_CONNECTION, DB_USER, DB_PASS);
-			System.out.println("Zaczynam ³¹czyæ");
+			System.out.println("Zaczynam Å‚Ä…czyÄ‡");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -51,7 +51,7 @@ public class Database {
 			statement.executeUpdate(adminQuery);
 			System.out.println("Dodano nowy lek.");
 		} catch (SQLException e) {
-			System.out.println("B³ad podczas dodawania leku");
+			System.out.println("Bï¿½ad podczas dodawania leku");
 			e.printStackTrace();
 		}
 
