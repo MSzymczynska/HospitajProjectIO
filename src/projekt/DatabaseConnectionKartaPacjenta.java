@@ -29,7 +29,7 @@ public class DatabaseConnectionKartaPacjenta {
 
 		try {
 			dbConnection = (Connection) DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASS);
-			System.out.println("Zaczynam ³¹czyæ");
+			System.out.println("Zaczynam Å‚Ä…czyÄ‡");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -51,9 +51,9 @@ public class DatabaseConnectionKartaPacjenta {
 			statement.executeUpdate(query);
 			statement2 = (Statement) dbConnection.createStatement();
 			statement2.executeUpdate(query2);
-			System.out.println("Dodano nowego pacjenta oraz jego kartê.");
+			System.out.println("Dodano nowego pacjenta oraz jego kartï¿½.");
 		} catch (SQLException e) {
-			System.out.println("B³ad podczas dodawania pacjenta.");
+			System.out.println("Bï¿½ad podczas dodawania pacjenta.");
 			e.printStackTrace();
 		}
 	}

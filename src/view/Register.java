@@ -13,6 +13,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -24,6 +25,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import projekt.Groups;
+import projekt.Privileges;
+import projekt.Users;
 
 /**
  *
@@ -45,6 +49,8 @@ public class Register extends JPanel {
     private JScrollPane groupsPane, privilegesPane, chGroupsPane, chPrivilegesPane; 
     private GridBagConstraints gbc = new GridBagConstraints();
     private ArrayList<JCheckBox> adminBoxList, managerBoxList, userBoxList;
+    private ArrayList<Groups> groups_;
+    private ArrayList<Privileges> privileges_;
     
     
     public Register() {        
@@ -155,8 +161,10 @@ public class Register extends JPanel {
         gbc.anchor = GridBagConstraints.LINE_START;
         privilegesPanel.add(groupsLabel, gbc);
         listModel = new DefaultListModel();
-        listModel.addElement("Admin");
-        listModel.addElement("Manager");
+        groups_ = Groups.getGroups();
+        for(Groups g : groups_) {
+            listModel.addElement(g.getName());
+        }
         groupsList = new JList(listModel);
         groupsList.setVisibleRowCount(5);
         groupsPane = new JScrollPane(groupsList);
@@ -184,9 +192,12 @@ public class Register extends JPanel {
         
         gbc.gridx = 1;
         gbc.gridy = 2;
+        privileges_ = Privileges.getPrivileges();
         privilegesPanel.add(privilegesLabel, gbc);
         privilegesModel = new DefaultListModel();
-        privilegesModel.addElement("Dodaj użytkownika");
+        for(Privileges p : privileges_) {
+            privilegesModel.addElement(p.path());
+        }
         privilegesList = new JList(privilegesModel);
         privilegesList.setVisibleRowCount(5);
         privilegesPane = new JScrollPane( privilegesList);
@@ -267,12 +278,34 @@ public class Register extends JPanel {
         String name, surname;
         String pass, repass;
         String phone;
-        String salary;
+        String email;
         name = nameText.getText();
         surname = surnameText.getText();
         pass = passText.getText();
         repass = rePassText.getText();
         phone = phoneText.getText();
-        salary = salaryText.getText();
+        email = emailText.getText();
+        ArrayList<Groups> groups = new ArrayList<>();
+        for(int i=0; i<chGroupsModel.getSize(); i++) {
+            for(Groups g : groups_)
+            {
+                if(g.getName().equals(chGroupsModel.getElementAt(i))) {                    
+                    groups.add(g);
+                    break;
+                }
+            }
+        }
+        ArrayList<Privileges> privileges = new ArrayList<>();
+        for(int i=0; i<chPrivilegesModel.getSize(); i++) {
+            for(Privileges p : privileges_)
+            {
+                if(p.path().equals(chPrivilegesModel.getElementAt(i))) {                    
+                    privileges.add(p);
+                    break;
+                }
+            }
+        }
+        
+        Users.addUser(name, surname, pass, repass, phone, email, groups, privileges);
     }
 }

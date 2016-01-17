@@ -10,7 +10,7 @@ public class AppointmentsTable extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = -2060646979656777096L;
 	private List<Appointment> list;
-	private String[] columnNames = { "Data wizyty", "Imiê doktora", "Nazwisko doktora", "Specjalizacja" };
+	private String[] columnNames = { "Data wizyty", "ImiÄ™ doktora", "Nazwisko doktora", "Specjalizacja" };
 
 	public AppointmentsTable(List<Appointment> list) {
 

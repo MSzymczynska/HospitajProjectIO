@@ -7,6 +7,9 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -14,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import projekt.Users;
 
 /**
  *
@@ -26,18 +30,21 @@ public class DeletePanel extends JPanel {
     private JButton deleteUserButton;
     private JLabel label;
     private JPanel labelPanel, usersPanel;
+    private ArrayList<Users> users_;
     
     public DeletePanel()
     {
         this.setLayout(new BorderLayout());
         this.setSize(1366, 768);
         usersModel = new DefaultListModel();
-        usersModel.addElement("Jan");
-        usersModel.addElement("Janusz");
+        users_ = Users.getUsers();
+        for(Users u : users_) {
+            usersModel.addElement(u.username());
+        }
         usersList = new JList(usersModel);
         usersPane = new JScrollPane(usersList);
-        label = new JLabel("UsuÒ uøytkownika");
-        deleteUserButton = new JButton("UsuÒ");
+        label = new JLabel("Usu≈Ñ u≈ºytkownika");
+        deleteUserButton = new JButton("Usu≈Ñ");
         
         JPanel leftPanel = new JPanel();
         leftPanel.setPreferredSize(new Dimension(this.getWidth()/3, this.getHeight()));
@@ -58,5 +65,18 @@ public class DeletePanel extends JPanel {
         
         this.add(labelPanel, BorderLayout.NORTH);
         this.add(usersPanel, BorderLayout.CENTER);
+        
+        deleteUserButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = usersList.getSelectedIndex();
+                Users u = users_.get(index);
+                users_.remove(index);
+                usersModel.removeElementAt(index);
+                usersList.setModel(usersModel);
+                Users.removeUser(u);
+            } 
+        });
     }
 }
