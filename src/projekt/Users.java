@@ -40,8 +40,7 @@ public class Users {
         return privileges_;
     }
     
-    public static void addUser(String name, String surname, String pass, 
-            String repass, String phone, String email, ArrayList<Groups> groups, 
+    public static void addUser(String name, String pass, ArrayList<Groups> groups, 
             ArrayList<Privileges> privileges)
     {
         

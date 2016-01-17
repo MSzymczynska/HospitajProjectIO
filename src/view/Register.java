@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -60,7 +62,7 @@ public class Register extends JPanel {
         this.setVisible(true);
         
         titleLabel = new JLabel("Dodaj nowego użytkownika");
-        nameLabel = new JLabel("Imie");
+        nameLabel = new JLabel("Imie i nazwisko");
         surnameLabel = new JLabel("Nazwisko");
         passLabell = new JLabel("Hasło");
         rePassLabel = new JLabel("Powtórz hasło");
@@ -116,46 +118,14 @@ public class Register extends JPanel {
         gbc.gridy = 2;        
         dataPanel.add(nameText, gbc);
         
-        // surname
-        gbc.gridx = 1;
-        gbc.gridy = 3;        
-        dataPanel.add(surnameLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 3;        
-        dataPanel.add(surnameText, gbc);
-        
         // pass
         gbc.gridx = 1;
         gbc.gridy = 4;        
         dataPanel.add(passLabell, gbc);        
         gbc.gridx = 2;
         gbc.gridy = 4;        
-        dataPanel.add(passText, gbc);
-        
-        // repass
-        gbc.gridx = 1;
-        gbc.gridy = 5;        
-        dataPanel.add(rePassLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 5;        
-        dataPanel.add(rePassText, gbc);
-        
-        // phone
-        gbc.gridx = 1;
-        gbc.gridy = 6;        
-        dataPanel.add(phoneLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 6;        
-        dataPanel.add(phoneText, gbc);
-        
-        // email
-        gbc.gridx = 1;
-        gbc.gridy = 7;        
-        dataPanel.add(emailLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 7;        
-        dataPanel.add(emailText, gbc);
-        
+        dataPanel.add(passText, gbc);        
+      
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.LINE_START;
@@ -271,41 +241,40 @@ public class Register extends JPanel {
         this.add(dataPanel, BorderLayout.WEST);
         this.add(privilegesPanel, BorderLayout.CENTER);
         this.add(registerButton, BorderLayout.SOUTH);
-    }
-    
-    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        String name, surname;
-        String pass, repass;
-        String phone;
-        String email;
-        name = nameText.getText();
-        surname = surnameText.getText();
-        pass = passText.getText();
-        repass = rePassText.getText();
-        phone = phoneText.getText();
-        email = emailText.getText();
-        ArrayList<Groups> groups = new ArrayList<>();
-        for(int i=0; i<chGroupsModel.getSize(); i++) {
-            for(Groups g : groups_)
-            {
-                if(g.getName().equals(chGroupsModel.getElementAt(i))) {                    
-                    groups.add(g);
-                    break;
-                }
-            }
-        }
-        ArrayList<Privileges> privileges = new ArrayList<>();
-        for(int i=0; i<chPrivilegesModel.getSize(); i++) {
-            for(Privileges p : privileges_)
-            {
-                if(p.path().equals(chPrivilegesModel.getElementAt(i))) {                    
-                    privileges.add(p);
-                    break;
-                }
-            }
-        }
         
-        Users.addUser(name, surname, pass, repass, phone, email, groups, privileges);
+        registerButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name, surname;
+            String pass, repass;
+            String phone;
+            String email;
+            name = nameText.getText();
+            pass = passText.getText();
+            ArrayList<Groups> groups = new ArrayList<>();
+            for(int i=0; i<chGroupsModel.getSize(); i++) {
+                for(Groups g : groups_)
+                {
+                    if(g.getName().equals(chGroupsModel.getElementAt(i))) {                    
+                        groups.add(g);
+                        break;
+                    }
+                }
+            }
+            ArrayList<Privileges> privileges = new ArrayList<>();
+            for(int i=0; i<chPrivilegesModel.getSize(); i++) {
+                for(Privileges p : privileges_)
+                {
+                    if(p.path().equals(chPrivilegesModel.getElementAt(i))) {                    
+                        privileges.add(p);
+                        break;
+                    }
+                }
+            }
+
+            Users.addUser(name,pass, groups, privileges);
+            }
+        });
     }
 }

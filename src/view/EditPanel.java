@@ -63,7 +63,7 @@ public class EditPanel extends JPanel {
         this.setVisible(true);
         
         titleLabel = new JLabel("Edytuj użytkownika");
-        nameLabel = new JLabel("Imie");
+        nameLabel = new JLabel("Imie i nazwisko");
         surnameLabel = new JLabel("Nazwisko");
         passLabell = new JLabel("Hasło");
         rePassLabel = new JLabel("Powtórz hasło");
@@ -125,46 +125,15 @@ public class EditPanel extends JPanel {
         gbc.gridy = 2;        
         dataPanel.add(nameText, gbc);
         
-        // surname
-        gbc.gridx = 1;
-        gbc.gridy = 3;        
-        dataPanel.add(surnameLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 3;        
-        dataPanel.add(surnameText, gbc);
-        
+              
         // pass
         gbc.gridx = 1;
         gbc.gridy = 4;        
         dataPanel.add(passLabell, gbc);        
         gbc.gridx = 2;
         gbc.gridy = 4;        
-        dataPanel.add(passText, gbc);
-        
-        // repass
-        gbc.gridx = 1;
-        gbc.gridy = 5;        
-        dataPanel.add(rePassLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 5;        
-        dataPanel.add(rePassText, gbc);
-        
-        // phone
-        gbc.gridx = 1;
-        gbc.gridy = 6;        
-        dataPanel.add(phoneLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 6;        
-        dataPanel.add(phoneText, gbc);
-        
-        // email
-        gbc.gridx = 1;
-        gbc.gridy = 7;        
-        dataPanel.add(emailLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 7;        
-        dataPanel.add(emailText, gbc);
-        
+        dataPanel.add(passText, gbc);        
+                
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.LINE_START;
@@ -339,19 +308,5 @@ public class EditPanel extends JPanel {
                 // TODO
             }
         });
-    }
-    
-    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        String name, surname;
-        String pass, repass;
-        String phone;
-        String salary;
-        name = nameText.getText();
-        surname = surnameText.getText();
-        pass = passText.getText();
-        repass = rePassText.getText();
-        phone = phoneText.getText();
-        salary = salaryText.getText();
     }
 }
