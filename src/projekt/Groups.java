@@ -26,6 +26,10 @@ public class Groups {
         name_ = name;
     }
     
+    public Groups(String name) {
+        this.name_ = name;
+    }
+    
     public int id()
     {
         return id_;
@@ -34,6 +38,10 @@ public class Groups {
     public String getName()
     {
         return name_;
+    }
+    
+    public void setName(String name) {
+        this.name_ = name;
     }
     
     public GroupsPrivileges getPrivileges()

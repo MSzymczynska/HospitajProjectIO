@@ -273,7 +273,7 @@ public class Register extends JPanel {
                 }
             }
 
-            Users.addUser(name,pass, groups, privileges);
+            boolean b = Users.addUser(name,pass, groups, privileges);
             }
         });
     }
