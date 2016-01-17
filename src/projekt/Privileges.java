@@ -21,6 +21,11 @@ public class Privileges {
         path_ = path;
     }
     
+    public int id()
+    {
+        return id_;
+    }
+    
     public String path()
     {
         return path_;
