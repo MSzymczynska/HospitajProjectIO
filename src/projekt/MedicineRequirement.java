@@ -2,21 +2,21 @@ package projekt;
 
 public class MedicineRequirement {
 
-	private Medicine medicine;
+	private String medicine;
 	private String amount;
 	private String application;
 
-	public MedicineRequirement(Medicine medicine, String amount, String application) {
+	public MedicineRequirement(String medicine, String amount, String application) {
 		this.medicine = medicine;
 		this.amount = amount;
 		this.application = application;
 	}
 
-	public Medicine getMedicine() {
+	public String getMedicine() {
 		return medicine;
 	}
 
-	public void setMedicine(Medicine medicine) {
+	public void setMedicine(String medicine) {
 		this.medicine = medicine;
 	}
 

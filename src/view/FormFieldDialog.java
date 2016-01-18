@@ -161,7 +161,7 @@ public class FormFieldDialog extends JDialog {
 
 		formatter = new SimpleDateFormat("yyyy-MM-dd");
 		//whenD = formField.getWhenOrderedDate();
-		whenOrdered.setBounds(10, 181, 86, 20);
+		whenOrdered.setBounds(15, 181, 86, 31);
 		contentPanel.add(whenOrdered);
 		whenOrdered.setColumns(10);
 		
@@ -171,7 +171,7 @@ public class FormFieldDialog extends JDialog {
 		
 		onWhenOrdered = new JTextField();
 		onWhenOrdered.setText(curDate);
-		onWhenOrdered.setBounds(125, 181, 86, 20);
+		onWhenOrdered.setBounds(125, 181, 86, 31);
 		contentPanel.add(onWhenOrdered);
 		onWhenOrdered.setColumns(10);
 		
@@ -192,7 +192,7 @@ public class FormFieldDialog extends JDialog {
 		
 		String statusTable[] = {"nie", "tak"};
 		JComboBox comboBoxIsDelivered = new JComboBox(statusTable);
-		comboBoxIsDelivered.setBounds(326, 181, 86, 20);
+		comboBoxIsDelivered.setBounds(326, 181, 86, 31);
 		contentPanel.add(comboBoxIsDelivered);
 		{
 			JPanel buttonPane = new JPanel();

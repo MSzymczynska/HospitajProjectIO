@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -24,6 +26,12 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import projekt.Accounts;
+import projekt.Groups;
+import projekt.Privileges;
+import projekt.Users;
+import projekt.UsersGroups;
+import projekt.UsersPrivileges;
 
 /**
  *
@@ -46,7 +54,8 @@ public class EditPanel extends JPanel {
     private JScrollPane groupsPane, privilegesPane, chGroupsPane, chPrivilegesPane, usersPane; 
     private GridBagConstraints gbc = new GridBagConstraints();
     private ArrayList<JCheckBox> adminBoxList, managerBoxList, userBoxList;
-    
+    private ArrayList<Users> users_;
+    private int index_;
     
     public EditPanel() {        
         this.setSize(1366, 768);
@@ -54,19 +63,19 @@ public class EditPanel extends JPanel {
         this.setLayout(new BorderLayout());
         this.setVisible(true);
         
-        titleLabel = new JLabel("Dodaj nowego uøytkownika");
-        nameLabel = new JLabel("Imie");
+        titleLabel = new JLabel("Edytuj u≈ºytkownika");
+        nameLabel = new JLabel("Imie i nazwisko");
         surnameLabel = new JLabel("Nazwisko");
-        passLabell = new JLabel("Has≥o");
-        rePassLabel = new JLabel("PowtÛrz has≥o");
+        passLabell = new JLabel("Has≈Ço");
+        rePassLabel = new JLabel("Powt√≥rz has≈Ço");
         phoneLabel = new JLabel("Telefon");
         emailLabel = new JLabel("Email");
-        salaryLabel = new JLabel("P≥aca");
+        salaryLabel = new JLabel("P≈Çaca");
         managerLabel = new JLabel("Manager");
-        departmentLabel = new JLabel("Oddzia≥");
-        groupsLabel = new JLabel("DostÍpne grupy");
+        departmentLabel = new JLabel("Oddzia≈Ç");
+        groupsLabel = new JLabel("Dostƒôpne grupy");
         chGroupsLabel = new JLabel("Wybrane grupy");
-        privilegesLabel = new JLabel("DostÍpne uprawnienia");
+        privilegesLabel = new JLabel("Dostƒôpne uprawnienia");
         chPrivilegesLabel = new JLabel("Wybrane uprawnienia");
         nameText = new JTextField(20);
         surnameText = new JTextField(20);
@@ -76,10 +85,13 @@ public class EditPanel extends JPanel {
         emailText = new JTextField(20);
         salaryText = new JFormattedTextField();        
         registerButton = new JButton("Zapisz");
-        userLabel = new JLabel("Wybierz uøtkownika do edycji");   
+        userLabel = new JLabel("Wybierz u≈ºtkownika do edycji");   
         
         usersModel = new DefaultListModel();
-        usersModel.addElement("Janusz");
+        users_ = Users.getUsers();
+        for(Users u : users_) {
+            usersModel.addElement(u.username());
+        }
         usersList = new JList();
         usersList.setModel(usersModel);
         usersPane = new JScrollPane(usersList);
@@ -98,6 +110,7 @@ public class EditPanel extends JPanel {
         usersPanel.setPreferredSize(new Dimension(this.getWidth()*1/7, this.getHeight()*2/5));
         usersPanel.setSize(new Dimension(this.getWidth()*1/7, this.getHeight()*2/5));
         
+                
         titleLabel.setForeground(Color.RED);
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -113,53 +126,21 @@ public class EditPanel extends JPanel {
         gbc.gridy = 2;        
         dataPanel.add(nameText, gbc);
         
-        // surname
-        gbc.gridx = 1;
-        gbc.gridy = 3;        
-        dataPanel.add(surnameLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 3;        
-        dataPanel.add(surnameText, gbc);
-        
+              
         // pass
         gbc.gridx = 1;
         gbc.gridy = 4;        
         dataPanel.add(passLabell, gbc);        
         gbc.gridx = 2;
         gbc.gridy = 4;        
-        dataPanel.add(passText, gbc);
-        
-        // repass
-        gbc.gridx = 1;
-        gbc.gridy = 5;        
-        dataPanel.add(rePassLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 5;        
-        dataPanel.add(rePassText, gbc);
-        
-        // phone
-        gbc.gridx = 1;
-        gbc.gridy = 6;        
-        dataPanel.add(phoneLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 6;        
-        dataPanel.add(phoneText, gbc);
-        
-        // email
-        gbc.gridx = 1;
-        gbc.gridy = 7;        
-        dataPanel.add(emailLabel, gbc);        
-        gbc.gridx = 2;
-        gbc.gridy = 7;        
-        dataPanel.add(emailText, gbc);
-        
+        dataPanel.add(passText, gbc);        
+                
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.LINE_START;
         privilegesPanel.add(groupsLabel, gbc);
         listModel = new DefaultListModel();
-        listModel.addElement("Admin");
-        listModel.addElement("Manager");
+        
         groupsList = new JList(listModel);
         groupsList.setVisibleRowCount(5);
         groupsPane = new JScrollPane(groupsList);
@@ -189,7 +170,7 @@ public class EditPanel extends JPanel {
         gbc.gridy = 2;
         privilegesPanel.add(privilegesLabel, gbc);
         privilegesModel = new DefaultListModel();
-        privilegesModel.addElement("Dodaj uøytkownika");
+        
         privilegesList = new JList(privilegesModel);
         privilegesList.setVisibleRowCount(5);
         privilegesPane = new JScrollPane( privilegesList);
@@ -267,19 +248,66 @@ public class EditPanel extends JPanel {
         this.add(dataPanel, BorderLayout.CENTER);
         this.add(privilegesPanel, BorderLayout.EAST);
         this.add(registerButton, BorderLayout.SOUTH);
-    }
-    
-    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        String name, surname;
-        String pass, repass;
-        String phone;
-        String salary;
-        name = nameText.getText();
-        surname = surnameText.getText();
-        pass = passText.getText();
-        repass = rePassText.getText();
-        phone = phoneText.getText();
-        salary = salaryText.getText();
+        
+        userButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = usersList.getSelectedIndex();
+                Users u = users_.get(index);
+                nameText.setText(u.username());
+                UsersPrivileges up = u.getPrivileges();
+                ArrayList<Privileges> privileges = up.privileges();
+                chPrivilegesModel = new DefaultListModel();
+                for(Privileges p : privileges) {
+                    chPrivilegesModel.addElement(p.path());
+                }
+                chPrivilegesList.setModel(chPrivilegesModel);
+                UsersGroups ug = u.getGroups();
+                ArrayList<Groups> groups = ug.getGroups();
+                chGroupsModel = new DefaultListModel();
+                for(Groups g : groups) {
+                    chGroupsModel.addElement(g.getName());
+                }
+                chGroupsList.setModel(chGroupsModel);
+                
+                ArrayList<Groups> allGroups = Groups.getGroups();
+                ArrayList<Privileges> allPrivileges = Privileges.getPrivileges();
+                listModel = new DefaultListModel();
+                privilegesModel = new DefaultListModel();
+                for(Groups g : allGroups) {
+                    boolean test = true;
+                    for(Groups x : groups) {
+                        if(g.getName().equals(x.getName())) {
+                            test = false;
+                            break;
+                        }                       
+                    }
+                    if(test)
+                        listModel.addElement(g.getName());
+                }
+                for(Privileges p : allPrivileges) {
+                    boolean test = true;
+                    for(Privileges x : privileges) {
+                        if(p.path().equals(x.path())) {
+                            test = false;
+                            break;
+                        }                       
+                    }
+                    if(test)
+                        privilegesModel.addElement(p.path());
+                }
+                groupsList.setModel(listModel);
+                privilegesList.setModel(privilegesModel);
+            }
+        });
+        
+        registerButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO
+            }
+        });
     }
 }

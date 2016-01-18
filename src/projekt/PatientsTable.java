@@ -3,16 +3,17 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import java.util.List;
 
-public class MedicineRequirementsTable extends AbstractTableModel {
+public class PatientsTable  extends AbstractTableModel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private List<MedicineRequirement> list;
-	private String[] columnNames = { "Nazwa leku", "Iloœæ", "Sposób aplikowania leku" };
+	private List<Patient> list;
+	private String[] columnNames = { "imie", "nazwisko", "id" };
 
-	public MedicineRequirementsTable(List<MedicineRequirement> list) {
+	public PatientsTable(List<Patient> list) {
 
 		this.list = list;
 	}
@@ -30,17 +31,17 @@ public class MedicineRequirementsTable extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object output = null;
-		MedicineRequirement medicineRequirement = null;
-		medicineRequirement = list.get(rowIndex);
+		Patient patient = null;
+		patient = list.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			output = medicineRequirement.getMedicine();
+			output = patient.getFirstName();
 			break;
 		case 1:
-			output = medicineRequirement.getAmount();
+			output = patient.getLastName();
 			break;
 		case 2:
-			output = medicineRequirement.getApplication();
+			output = patient.getIndex();
 			break;
 		}
 		return output;
@@ -55,7 +56,8 @@ public class MedicineRequirementsTable extends AbstractTableModel {
 		return columnNames[column];
 	}
 
-	public List<MedicineRequirement> getList() {
+	public List<Patient> getList() {
 		return list;
 	}
 }
+

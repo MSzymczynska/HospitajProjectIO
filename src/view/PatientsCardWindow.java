@@ -1,10 +1,12 @@
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PatientsCardWindow {
 
@@ -29,7 +31,7 @@ public class PatientsCardWindow {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 234, 265);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 
@@ -40,21 +42,18 @@ public class PatientsCardWindow {
 				newWindow.setVisible(true);
 			}
 		});
-		btnOtwrzKartPacjenta.setBounds(10, 11, 188, 23);
+		btnOtwrzKartPacjenta.setBounds(10, 11, 198, 50);
 		frame.getContentPane().add(btnOtwrzKartPacjenta);
 
-		JButton btnDodajPacjenta = new JButton("Dodaj Pacjenta");
-		btnDodajPacjenta.addActionListener(new ActionListener() {
+
+		JButton btnUsuPacjenta = new JButton("Otw\u00F3rz list\u0119 pacjent\u00F3w");
+		btnUsuPacjenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CreatePatient card = new CreatePatient();
-				card.setVisible(true);
+				PatientsListView list = new PatientsListView();
+				list.setVisible(true);				
 			}
 		});
-		btnDodajPacjenta.setBounds(10, 45, 188, 23);
-		frame.getContentPane().add(btnDodajPacjenta);
-
-		JButton btnUsuPacjenta = new JButton("Usu\u0144 Pacjenta");
-		btnUsuPacjenta.setBounds(10, 79, 188, 23);
+		btnUsuPacjenta.setBounds(10, 96, 198, 50);
 		frame.getContentPane().add(btnUsuPacjenta);
 	}
 }

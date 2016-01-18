@@ -13,7 +13,7 @@ public class Interview {
 			String doctorsLastName, String information) {
 		this.date = date;
 		this.doctorsFirstName = doctorsFirstName;
-		this.doctorsLastName = doctorsFirstName;
+		this.doctorsLastName = doctorsLastName;
 		this.information = information;
 	}
 

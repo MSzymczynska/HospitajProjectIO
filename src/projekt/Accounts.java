@@ -7,6 +7,7 @@ package projekt;
 
 import java.lang.Exception;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Accounts {
     private final Connection database;
@@ -79,6 +80,24 @@ public class Accounts {
         if (isAdmin())
         {
             return true;
+        }
+        
+        ArrayList<Groups> groups = auth_user.getGroups().getGroups();
+        for (int i = 0; i < groups.size(); ++i)
+        {
+            if (groups.get(i).can(privilegePath))
+            {
+                return true;
+            }
+        }
+        
+        ArrayList<Privileges> privileges = auth_user.getPrivileges().privileges();
+        for (int i = 0; i < groups.size(); ++i)
+        {
+            if (privileges.get(i).path().compareTo(privilegePath) == 0)
+            {
+                return true;
+            }
         }
         
         return false;
