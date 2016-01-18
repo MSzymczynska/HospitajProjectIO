@@ -19,12 +19,12 @@ public class adminJFrame extends JFrame {
 		
         this.setVisible(true);
         this.setLayout(new BorderLayout());
-        this.setTitle("System zarz¹dzania szpitalem");
+        this.setTitle("System zarzÄ…dzania szpitalem");
         
         tabbedPane = new JTabbedPane();
         adminPanel = new AdminPanel(); 
 
-        tabbedPane.addTab("Zarz¹dzanie u¿ytkownikami", adminPanel);
+        tabbedPane.addTab("ZarzÄ…dzanie uÅ¼ytkownikami", adminPanel);
         this.add(tabbedPane, BorderLayout.NORTH);
         
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
