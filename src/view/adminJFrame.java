@@ -10,7 +10,7 @@ public class adminJFrame extends JFrame {
 
 	private JPanel contentPane;
 	 private JTabbedPane tabbedPane;
-	    private JPanel adminPanel;
+	    private JPanel adminPanel, groupsPanel;
 
 	/**
 	 * Create the frame.
@@ -19,12 +19,16 @@ public class adminJFrame extends JFrame {
 		
         this.setVisible(true);
         this.setLayout(new BorderLayout());
-        this.setTitle("System zarządzania szpitalem");
+
+        tabbedPane.addTab("Zarządzanie użytkownikami", adminPanel);
+        this.setTitle("System zarz�dzania szpitalem");
         
         tabbedPane = new JTabbedPane();
         adminPanel = new AdminPanel(); 
-
+        groupsPanel = new GroupsPanel();
+        
         tabbedPane.addTab("Zarządzanie użytkownikami", adminPanel);
+        tabbedPane.addTab("Grupy", groupsPanel);
         this.add(tabbedPane, BorderLayout.NORTH);
         
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
