@@ -9,17 +9,17 @@ public class ConditionsTable extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 4526018300843114763L;
-	private List<Condition> list;
-	private String[] columnNames = { "Data", "Stan pacjenta" };
+	private List<String> list;
+	private String[] columnNames = {"Aktualny stan pacjenta" };
 
-	public ConditionsTable(List<Condition> list) {
+	public ConditionsTable(List<String> list) {
 
 		this.list = list;
 	}
 
 	@Override
 	public int getColumnCount() {
-		return 2;
+		return 1;
 	}
 
 	@Override
@@ -30,14 +30,11 @@ public class ConditionsTable extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object output = null;
-		Condition condition = null;
+		String condition = null;
 		condition = list.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			output = condition.getDate();
-			break;
-		case 1:
-			output = condition.getCondition();
+			output = condition;
 			break;
 		}
 		return output;
@@ -52,7 +49,7 @@ public class ConditionsTable extends AbstractTableModel {
 		return columnNames[column];
 	}
 
-	public List<Condition> getList() {
+	public List<String> getList() {
 		return list;
 	}
 }
