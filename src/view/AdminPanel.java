@@ -26,9 +26,9 @@ public class AdminPanel extends JPanel {
         addUserPanel = new Register();
         deleteUserPanel = new DeletePanel();
         editUserPanel = new EditPanel();
-        pane.addTab("Dodaj uøytkownika", addUserPanel);
-        pane.addTab("UsuÒÑ uøytkownika", deleteUserPanel);
-        pane.addTab("Edytuj uøytkownika", editUserPanel);
+        pane.addTab("Dodaj u≈ºytkownika", addUserPanel);
+        pane.addTab("Usu≈Ñ u≈ºytkownika", deleteUserPanel);
+        pane.addTab("Edytuj u≈ºytkownika", editUserPanel);
         this.add(pane, BorderLayout.NORTH);
     }
 }

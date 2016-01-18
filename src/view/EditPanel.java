@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import projekt.Accounts;
 import projekt.Groups;
 import projekt.Privileges;
 import projekt.Users;
