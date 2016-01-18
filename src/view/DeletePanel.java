@@ -75,7 +75,7 @@ public class DeletePanel extends JPanel {
                 users_.remove(index);
                 usersModel.removeElementAt(index);
                 usersList.setModel(usersModel);
-                Users.removeUser(u);
+                boolean b = Users.removeUser(u);
             } 
         });
     }
