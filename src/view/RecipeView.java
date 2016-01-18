@@ -62,14 +62,14 @@ public class RecipeView {
 		frame.getContentPane().add(labelName);
 		
 		JTextArea desc = new JTextArea();
-		desc.setBounds(10,100, 170, 20);
+		desc.setBounds(10,100, 170, 25);
 		desc.setEditable(false);
 		desc.setText(recipe.getDescription());
 		frame.getContentPane().add(desc);
 			
 		JLabel lblWartoKaloryczna = new JLabel("Warto\u015B\u0107 kaloryczna (kcal):");
 		lblWartoKaloryczna.setText(lblWartoKaloryczna.getText()+" "+recipe.getCalorificValue());
-		lblWartoKaloryczna.setBounds(190, 100, 234, 14);
+		lblWartoKaloryczna.setBounds(190, 100, 234, 25);
 		frame.getContentPane().add(lblWartoKaloryczna);
 		
 		JLabel lblCechy = new JLabel("Cechy:");

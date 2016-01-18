@@ -63,16 +63,16 @@ public class NewRecipeForm {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblName = new JLabel("Nazwa");
-		lblName.setBounds(21, 33, 134, 14);
+		lblName.setBounds(21, 33, 134, 25);
 		frame.getContentPane().add(lblName);
 		
 		textFieldName = new JTextField();
-		textFieldName.setBounds(191, 30, 211, 20);
+		textFieldName.setBounds(191, 30, 211, 25);
 		frame.getContentPane().add(textFieldName);
 		textFieldName.setColumns(10);
 		
 		JLabel lblOpis = new JLabel("Opis");
-		lblOpis.setBounds(21, 88, 134, 14);
+		lblOpis.setBounds(21, 88, 134, 25);
 		frame.getContentPane().add(lblOpis);
 		
 
@@ -85,20 +85,20 @@ public class NewRecipeForm {
 		
 		
 		lblCalValue = new JLabel("Warto\u015B\u0107 kaloryczna");
-		lblCalValue.setBounds(21, 154, 134, 14);
+		lblCalValue.setBounds(21, 154, 134, 25);
 		frame.getContentPane().add(lblCalValue);
 		
 		textField = new JTextField();
-		textField.setBounds(191, 151, 166, 20);
+		textField.setBounds(191, 151, 166, 25);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblKcal = new JLabel("kcal");
-		lblKcal.setBounds(378, 154, 46, 14);
+		lblKcal.setBounds(378, 154, 46, 25);
 		frame.getContentPane().add(lblKcal);
 		
 		lblProducts = new JLabel("Produkty");
-		lblProducts.setBounds(21, 210, 134, 14);
+		lblProducts.setBounds(21, 210, 134, 25);
 		frame.getContentPane().add(lblProducts);
 		
 		JTextArea textAreaProducts = new JTextArea();
@@ -128,23 +128,23 @@ public class NewRecipeForm {
 		frame.getContentPane().add(chckbxNewCheckBox_4);
 		
 		JLabel lblCechy = new JLabel("Cechy");
-		lblCechy.setBounds(21, 419, 134, 14);
+		lblCechy.setBounds(21, 419, 134, 25);
 		frame.getContentPane().add(lblCechy);
 		
 		JLabel lblDodajProdukt = new JLabel("Dodaj produkt");
-		lblDodajProdukt.setBounds(21, 302, 134, 14);
+		lblDodajProdukt.setBounds(21, 302, 134, 20);
 		frame.getContentPane().add(lblDodajProdukt);
 		
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(191, 299, 144, 20);	
+		comboBox.setBounds(191, 299, 144, 25);	
 		ProductListModel cbm = new ProductListModel();
 		cbm.setProducts(new ListsOperations().productsToProductArray());
 		comboBox.setModel(cbm);
 		frame.getContentPane().add(comboBox);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(349, 299, 53, 20);
+		textField_2.setBounds(349, 299, 53, 25);
 		frame.getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 		

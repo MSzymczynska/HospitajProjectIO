@@ -61,7 +61,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Login");
 
-        jLabel3.setText("Has≈Ço");
+        jLabel3.setText("Has≥o");
 
         loginText.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         loginText.addActionListener(new java.awt.event.ActionListener() {

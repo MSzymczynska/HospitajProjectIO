@@ -135,7 +135,7 @@ public class ResourcesView {
 		frame.getContentPane().add(btnWyjd);
 		
 		textField = new JTextField();
-		textField.setBounds(20, 202, 305, 20);
+		textField.setBounds(20, 202, 305, 28);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
