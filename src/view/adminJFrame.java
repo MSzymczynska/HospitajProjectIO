@@ -20,8 +20,7 @@ public class adminJFrame extends JFrame {
         this.setVisible(true);
         this.setLayout(new BorderLayout());
 
-        tabbedPane.addTab("Zarządzanie użytkownikami", adminPanel);
-        this.setTitle("System zarz�dzania szpitalem");
+        this.setTitle("System zarządzania szpitalem");
         
         tabbedPane = new JTabbedPane();
         adminPanel = new AdminPanel(); 

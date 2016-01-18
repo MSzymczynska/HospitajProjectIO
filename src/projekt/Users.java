@@ -109,9 +109,31 @@ public class Users {
         }
     }
     
-    public static boolean updateUser(String name, String pass)
+    public static boolean updateUser(String name, String pass, ArrayList<Groups> groups, ArrayList<Privileges> privileges)
     {
-        return true;
+        try {
+            Connection conn = DbManager.getInstance().connection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE users username = ?, password = PASSWORD(?) WHERE username = ?");
+            stmt.setString(1, name);
+            stmt.setString(2, pass);
+            stmt.setString(3, name);
+            
+            stmt.execute();
+            ResultSet keys = stmt.getGeneratedKeys();
+            int id = 0;
+            if (keys.next())
+            {
+                id = keys.getInt(1);
+            }
+            
+            addUserPrivileges(id, privileges);
+            addUserGroups(id, groups);
+            return true;
+        } catch (SQLException e)
+        {
+            System.err.println("Users::updateUser: " + e.getMessage());
+            return false;
+        }
     }
     
     public static ArrayList<Users> getUsers() {
