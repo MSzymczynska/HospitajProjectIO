@@ -34,7 +34,7 @@ public class MedicineRequirementsTable extends AbstractTableModel {
 		medicineRequirement = list.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			output = medicineRequirement.getMedicine().name;
+			output = medicineRequirement.getMedicine();
 			break;
 		case 1:
 			output = medicineRequirement.getAmount();
