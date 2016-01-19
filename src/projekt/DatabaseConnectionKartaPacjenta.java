@@ -263,6 +263,33 @@ public class DatabaseConnectionKartaPacjenta {
 		return list;
 	}
 	
+//ZALECENIA JEDZONKO
+	
+	public static List<String> fillMeals(String firstName, String lastName){
+		Connection dbConnection = null;
+		Statement statement = null;
+		ResultSet result = null;
+		List<String> list = new ArrayList<String>();
+		String query = "select MF.title "+
+				" from  meal_features MF,  patients P"+
+				" where MF.feature_id= P.daily_menu_id"+
+				" AND P.first_name='"+firstName+"' AND P.last_name='"+lastName+"'";
+		try {
+			dbConnection = dbConnection();
+			statement = (Statement) dbConnection.createStatement();
+			result = (ResultSet) statement.executeQuery(query);
+			while(result.next()){
+				String meal = result.getString("title");
+				list.add(meal);
+			}
+		} catch (SQLException e) {
+			System.out.println("Error - fillConditions.");
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
 	//USUN STAN PACJENTA//
 	
 	public static void deleteCondition(String tekst) throws SQLException{
@@ -543,17 +570,16 @@ public static int appointmentMaxID() throws SQLException{
 		}
 	}
 	
-public static void addInterview(int id,int idDoctor, String date,  String firstName, String lastName, String information) throws SQLException{
+public static void addInterview(int id,int idDoctor,  String firstName, String lastName, String information) throws SQLException{
 		
 		Connection dbConnection = null;
 		Statement statement = null;		
 		String query = "INSERT into interviews values ("+id+", (SELECT patient_id FROM patients WHERE first_name='"
-				+firstName+"' AND last_name='"+lastName+"'),"+idDoctor+",'"+date+"','"+information+"');";
+				+firstName+"' AND last_name='"+lastName+"'),"+idDoctor+",CURDATE(),'"+information+"');";
 		try {
 			dbConnection = dbConnection();
 			statement = (Statement) dbConnection.createStatement();
 			System.out.println("idDoctor "+idDoctor);
-			System.out.println(date);
 			statement.executeUpdate(query);
 			}			
 		 catch (SQLException e) {

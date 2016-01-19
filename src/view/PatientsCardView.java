@@ -18,6 +18,7 @@ import projekt.ConditionsTable;
 import projekt.DatabaseConnectionKartaPacjenta;
 import projekt.Interview;
 import projekt.InterviewsTable;
+import projekt.MealsTable;
 import projekt.MedicineRequirement;
 import projekt.MedicineRequirementsTable;
 
@@ -59,6 +60,9 @@ public class PatientsCardView extends JFrame {
 	public  String checkInterviewInformation;
 	private InterviewsTable modelOfInterviews;
 	private List<Interview> listOfIntervies;
+	
+	private MealsTable modelOfMeals;
+	private List<String> listOfMeals;
 
 	private ConditionsTable modelOfConditions;
 	private List<String> listOfConditions;
@@ -76,10 +80,9 @@ public class PatientsCardView extends JFrame {
 	private JTable tableAppointments;
 	private JTable tableCondition;
 	private JTable tableRequirements;
+	private JTable tableMeals;
 	
 	private JTextField condition;
-	
-	private JTextField date;
 	private JTextField doctorsFirst;
 	private JTextField DoctorsLastName;
 	private JTextField interviewInformation;
@@ -95,7 +98,7 @@ public class PatientsCardView extends JFrame {
 		
 		JFrame jframe = new JFrame("Karta pacjenta: "+firstName +" "+lastName);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		jframe.setSize(959, 667);
+		jframe.setSize(951, 547);
 		jframe.setVisible(true);
 		jframe.getContentPane().setLayout(null);
 
@@ -119,6 +122,23 @@ public class PatientsCardView extends JFrame {
 		lblWywiady.setHorizontalAlignment(SwingConstants.CENTER);
 		jframe.getContentPane().add(lblWywiady);
 		
+		//MENU PACJENTA//
+		
+		listOfMeals = new ArrayList<String>();
+		listOfMeals = DatabaseConnectionKartaPacjenta.fillMeals(firstName, lastName);
+		modelOfMeals = new MealsTable(listOfMeals);
+		
+		tableMeals = new JTable(modelOfMeals);
+		tableMeals.setFillsViewportHeight(true);
+		JScrollPane scrollPaneMeals = new JScrollPane(tableMeals);
+		scrollPaneMeals.setBounds(485, 217, 295, 37);
+		jframe.getContentPane().add(scrollPaneMeals);
+		
+		JLabel lblMeals = new JLabel("Zalecenia zywieniowe");
+		lblMeals.setBounds(485, 190, 295, 16);
+		lblMeals.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblMeals.setHorizontalAlignment(SwingConstants.CENTER);
+		jframe.getContentPane().add(lblMeals);
 		
 	
 		
@@ -140,20 +160,13 @@ public class PatientsCardView extends JFrame {
 		lblWizyty.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		jframe.getContentPane().add(lblWizyty);
 		
-		
-		//DODAJ WYWIAD//
-		date = new JTextField();
-		date.setBounds(10, 190, 110, 23);
-		jframe.getContentPane().add(date);
-		date.setColumns(10);
-		
 		doctorsFirst = new JTextField();
-		doctorsFirst.setBounds(118, 190, 110, 23);
+		doctorsFirst.setBounds(10, 190, 110, 23);
 		jframe.getContentPane().add(doctorsFirst);
 		doctorsFirst.setColumns(10);
 		
 		DoctorsLastName = new JTextField();
-		DoctorsLastName.setBounds(227, 190, 110, 23);
+		DoctorsLastName.setBounds(130, 190, 110, 23);
 		jframe.getContentPane().add(DoctorsLastName);
 		DoctorsLastName.setColumns(10);
 		
@@ -223,7 +236,7 @@ public class PatientsCardView extends JFrame {
 				}
 			}
 		});
-		btnUsunStanPacjenta.setBounds(485, 400, 125, 23);
+		btnUsunStanPacjenta.setBounds(485, 400, 161, 23);
 		jframe.getContentPane().add(btnUsunStanPacjenta);
 		
 //DODANIE STANU PACJENTA		
@@ -257,7 +270,7 @@ public class PatientsCardView extends JFrame {
 							idDoctor=DatabaseConnectionKartaPacjenta.getIdDoctor(doctorsFirst.getText(), DoctorsLastName.getText());
 							System.out.println("ajdiwywiadu:"+id);
 							System.out.println("ajdidoktora"+idDoctor);
-							DatabaseConnectionKartaPacjenta.addInterview(id, idDoctor, date.getText(), firstName, lastName, interviewInformation.getText());	
+							DatabaseConnectionKartaPacjenta.addInterview(id, idDoctor, firstName, lastName, interviewInformation.getText());	
 							bladInterview.setText("Dodano wywiad");
 							bladInterview.setForeground(Color.GREEN);
 							bladInterview.repaint();
@@ -276,7 +289,7 @@ public class PatientsCardView extends JFrame {
 						}
 					}
 				});
-				btnDodajWizyte.setBounds(347, 190, 103, 23);
+				btnDodajWizyte.setBounds(307, 189, 143, 23);
 				jframe.getContentPane().add(btnDodajWizyte);
 				
 				
@@ -317,14 +330,14 @@ public class PatientsCardView extends JFrame {
 				});
 				
 				bladAppointment = new JLabel();
-				bladAppointment.setBounds(118, 406, 332, 14);				
+				bladAppointment.setBounds(70, 483, 332, 14);				
 				jframe.getContentPane().add(bladAppointment);
 				
 				bladInterview = new JLabel();
-				bladInterview.setBounds(123, 147, 322, 14);
+				bladInterview.setBounds(70, 249, 322, 14);
 				jframe.getContentPane().add(bladInterview);
 				
-				btnDodajWizyte_1.setBounds(347, 449, 103, 23);
+				btnDodajWizyte_1.setBounds(307, 417, 153, 23);
 				jframe.getContentPane().add(btnDodajWizyte_1);
 							
 				appointmentDate = new JTextField();
@@ -361,7 +374,7 @@ public class PatientsCardView extends JFrame {
 						
 					}
 				});
-				btnDeleteAppointment.setBounds(10, 402, 103, 23);
+				btnDeleteAppointment.setBounds(10, 402, 153, 23);
 				jframe.getContentPane().add(btnDeleteAppointment);
 				
 				
@@ -384,7 +397,7 @@ public class PatientsCardView extends JFrame {
 						
 					}
 				});
-				btnDeleteInterview.setBounds(10, 138, 103, 23);
+				btnDeleteInterview.setBounds(10, 138, 153, 23);
 				jframe.getContentPane().add(btnDeleteInterview);
 				
 				
@@ -392,20 +405,12 @@ public class PatientsCardView extends JFrame {
 				lblNewLabel.setBounds(46, 437, 74, 14);
 				jframe.getContentPane().add(lblNewLabel);
 				
-				JLabel label = new JLabel("YYYY-MM-DD");
-				label.setBounds(46, 176, 143, 14);
-				jframe.getContentPane().add(label);
-				
-				JLabel lblData = new JLabel("Data");
-				lblData.setBounds(10, 176, 69, 14);
-				jframe.getContentPane().add(lblData);
-				
 				JLabel lblImiDoktora = new JLabel("Imi\u0119 doktora");
-				lblImiDoktora.setBounds(118, 176, 116, 14);
+				lblImiDoktora.setBounds(10, 176, 116, 14);
 				jframe.getContentPane().add(lblImiDoktora);
 				
 				JLabel lblNazwiskoDoktora = new JLabel("Nazwisko doktora");
-				lblNazwiskoDoktora.setBounds(227, 176, 110, 14);
+				lblNazwiskoDoktora.setBounds(130, 176, 110, 14);
 				jframe.getContentPane().add(lblNazwiskoDoktora);
 				
 				JLabel lblOpis = new JLabel("Opis:");
@@ -428,14 +433,14 @@ public class PatientsCardView extends JFrame {
 				lblStanPacjenta.setBounds(485, 434, 110, 14);
 				jframe.getContentPane().add(lblStanPacjenta);
 				
-				JButton btnOpis = new JButton("Opis");
+				JButton btnOpis = new JButton("Pelen opis");
 				btnOpis.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						PatientsCardDialogBox dialog = new PatientsCardDialogBox(PatientsCardFunctions.formatujString(checkInterviewInformation));
 						dialog.setVisible(true);		
 					}
 				});
-				btnOpis.setBounds(361, 138, 89, 23);
+				btnOpis.setBounds(307, 138, 143, 23);
 				jframe.getContentPane().add(btnOpis);
 				
 			
