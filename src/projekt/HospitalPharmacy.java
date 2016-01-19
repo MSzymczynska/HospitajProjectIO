@@ -127,7 +127,7 @@ public class HospitalPharmacy{
 					while(result2.next())
 					{
 						composition.add(result2.getString(1));
-						System.out.println(result2.getString(1));
+						//System.out.println(result2.getString(1));
 					}
 					m.setMedicineComposition(composition);			
 				}
